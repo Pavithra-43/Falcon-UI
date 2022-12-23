@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+		<div class="container">
+			<a style="padding-left: -10px;" class="navbar-brand" href="#"><img width="150" alt="Angular Logo"
+					src="https://www.capgemini.com/us-en/wp-content/themes/capgemini-komposite/assets/images/logo.svg" /></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul style="padding-left: 50px;" class="navbar-nav ms-auto">
+					<li class="nav-item active">
+						<a class="nav-link" routerLink="/">
+							<h3>Dashboard</h3>
+						</a>
+					</li>
+
+
+				</ul>
+
+
+			</div>
+			<div class="spacer"></div>
+		</div>
+	</nav>
+
+
+
+	<div class="slider">
+		<input name="control" id="page1" type="radio" checked /> <input name="control" id="page2" type="radio" /> <input
+			name="control" id="page3" type="radio" /> <input name="control" id="page4" type="radio" />
+
+		<div class="slider--el slider--el-1 anim-4parts" style="padding-top: 60px;">
+			<div class="slider--el-bg">
+				<div class="part top left"></div>
+				<div class="part top right"></div>
+				<div class="part bot left"></div>
+				<div class="part bot right"></div>
+			</div>
+
+			<div class="slider--el-content" style="padding-top: 40px;text-align: center;">
+				<h2 class="slider--el-heading" style="font-size: 50px;padding-top: 50px;font-weight: 400;">WHEELS OF
+					ACCELERATOR</h2>
+
+
+
+			</div>
+
+			<div class="circle" style="left: 400px;" (click)="btn2()">
+				<div class="ring">
+					<a href="https://www.youtube.com/c/CapgeminiGlobal" class="menuItem "> <img class="imgs"
+							src="https://img.icons8.com/ios-filled/50/4a90e2/youtube-squared.png"
+							style="height: 40px;" /></a>
+					<a href="https://github.com/capgemini" class="menuItem "> <img class="imgs"
+							src="https://img.icons8.com/ios-glyphs/30/4a90e2/github.png" style="height: 45px;" /></a>
+					<a href="https://twitter.com/Capgemini?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+						class="menuItem "> <img class="imgs"
+							src="https://img.icons8.com/fluency/48/000000/twitter.png" /></a> <a
+						href="https://twitter.com/Capgemini?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+						class="menuItem "> <img class="imgs"
+							src="https://img.icons8.com/color/48/000000/linkedin.png" /></a> <a
+						href="https://www.pinterest.com/pin/210684088803156170/" class="menuItem "> <img class="imgs"
+							src="https://img.icons8.com/ultraviolet/50/000000/pinterest.png" /></a>
+					<a href="https://www.shutterstock.com/search/capgemini+logo" class="menuItem "> <img class="imgs"
+							src="https://img.icons8.com/ios-filled/50/4a90e2/shutterstock.png" /></a>
+
+					<a href="https://gitlab.com/capgemini-fp" class="menuItem "> <img class="imgs"
+							src="data:image/png;base64,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"
+							style="height: 50px;" /></a>
+					<a href="https://www.capgemini.com/" class="menuItem "> <img class="imgs"
+							src="../assets/static/capg.png" style="height: 50px;" /></a>
+
+
+
+				</div>
+				<a title="Click" hreflang="#" class="center fa fa-th fa-2x" style="font-size: 20px;
+						height: 50px;
+						width: 50px;
+						text-align: center;
+						padding: 13px;
+						color: white;"></a>
+
+
+
+			</div>
+
+			<div class="bodyElement" style="padding-right:40px ;">
+				<div style="padding-right:40px ;padding-top: 60px;">
+					<label title="Previous" style="padding-left: 100px;" for="one">
+						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
+							viewBox="0 0 172 172" style=" fill:#000000;position: fixed;">
+							<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+								stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+								font-family="none" font-weight="none" font-size="none" text-anchor="none"
+								style="mix-blend-mode: normal">
+								<path d="M0,172v-172h172v172z" fill="none"></path>
+								<g fill="#ffffff">
+									<path
+										d="M120.26563,10.25281c-1.78719,0.05375 -3.48031,0.80625 -4.73,2.08281l-68.8,68.8c-2.6875,2.6875 -2.6875,7.04125 0,9.72875l68.8,68.8c1.72,1.80062 4.28656,2.52625 6.70531,1.89469c2.40531,-0.63156 4.28656,-2.51281 4.91813,-4.91813c0.63156,-2.41875 -0.09406,-4.98531 -1.89469,-6.70531l-63.93563,-63.93563l63.93563,-63.93562c2.02906,-1.97531 2.64719,-4.99875 1.54531,-7.61906c-1.11531,-2.60688 -3.70875,-4.27313 -6.54406,-4.1925z">
+									</path>
+								</g>
+							</g>
+						</svg>
+					</label>
+				</div>
+				<div class="container12">
+
+
+
+					<input type="radio" name="dot" id="one">
+					<input type="radio" name="dot" id="two">
+					<div class="main-card">
+						<div class="cards">
+							<div class="card12">
+								<h1 style="
+								text-align: center;
+							">Introduction</h1>
+								<div class="content12" style="padding-top: 50px;">
+
+									<p style="font-size: 15px;">Reduce development time using simple utilities!</p>
+									<a routerLink="/introduction">Read More</a>
+								</div>
+							</div>
+							<div class="card12">
+								<h1 style="
+								text-align: center;
+							">Mapping Document</h1>
+								<div class="content12" style="padding-top: 50px;">
+									<p style="font-size: 15px;">Simplifies the mappings between Java bean types</p>
+									<a routerLink="/mapping">Read More</a>
+								</div>
+							</div>
+
+							<div class="card12">
+								<h1 style="
+								text-align: center;
+							">API Generator</h1>
+								<div class="content12" style="padding-top: 50px !important;">
+
+									<p style="font-size: 15px">Generate your application with custom initializr</p>
+									<a routerLink="/initializr">Read More</a>
+								</div>
+							</div>
+							<!-- <div class="card12">
+								<h1 style="
+								text-align: center;
+							">API Virtualization Tool</h1>
+								<div class="content12" style="padding-top: 50px;">
+									<p style="font-size: 15px;">Mock your APIs robust & comprehensive
+									</p>
+
+									<a routerLink="/wiremock">Read More</a>
+								</div>
+							</div> -->
+
+						</div>
+
+
+						<div class="cards">
+							<div class="card12">
+								<h1 style="
+								text-align: center;
+							">API Virtualization Tool</h1>
+								<div class="content12" style="padding-top: 50px;">
+									<p style="font-size: 15px;">Mock your APIs robust & comprehensive
+									</p>
+
+									<a routerLink="/wiremock">Read More</a>
+								</div>
+							</div>
+							<div class="card12">
+								<h1 style="
+								text-align: center;
+							">Response Comparison Tool</h1>
+								<div class="content12" style="padding-top: 50px;">
+
+									<p style="font-size: 15px;">Designed for comparing responses</p>
+									<a routerLink="/karate-tool">Read More</a>
+								</div>
+							</div>
+
+							<!-- <div class="card12">
+								<h1 style="
+								text-align: center;
+							">API Virtualization Tool</h1>
+								<div class="content12" style="padding-top: 50px;">
+									<p style="font-size: 15px;">Mock your APIs robust & comprehensive
+									</p>
+
+									<a routerLink="/wiremock">Read More</a>
+								</div>
+							</div> -->
+
+
+							<div class="card12">
+								<h1 style="
+								text-align: center;
+							">Performance Pillar</h1>
+								<div class="content12" style="padding-top: 50px;">
+									<p style="font-size: 15px;">Future enhancement on performance using gatling
+									</p>
+
+									<a routerLink="/gatling">Read More</a>
+								</div>
+							</div>
+
+							<!-- <div class="card12">
+								<h1 style="
+								text-align: center;
+							">Mapping Document</h1>
+								<div class="content12" style="padding-top: 50px;">
+									<p style="font-size: 15px;">Simplifies the mappings between Java bean types</p>
+									<a routerLink="/mapping">Read More</a>
+								</div>
+							</div> -->
+
+
+
+
+						</div>
+					</div>
+					<div class="button12" style="padding-top: -30px !important;">
+
+
+					</div>
+				</div>
+				<div style="padding-top: 60px;">
+					<label title="Next" for="two">
+						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
+							viewBox="0 0 172 172" style=" fill:#000000;">
+							<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+								stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+								font-family="none" font-weight="none" font-size="none" text-anchor="none"
+								style="mix-blend-mode: normal">
+								<path d="M0,172v-172h172v172z" fill="none"></path>
+								<g fill="#ffffff">
+									<path
+										d="M51.53281,10.25281c-2.80844,0 -5.32125,1.70656 -6.36938,4.3c-1.06156,2.59344 -0.43,5.56312 1.57219,7.51156l63.93562,63.93562l-63.93562,63.93563c-1.80063,1.72 -2.52625,4.28656 -1.89469,6.70531c0.63156,2.40531 2.51281,4.28656 4.91813,4.91813c2.41875,0.63156 4.98531,-0.09406 6.70531,-1.89469l68.8,-68.8c2.6875,-2.6875 2.6875,-7.04125 0,-9.72875l-68.8,-68.8c-1.30344,-1.33031 -3.07719,-2.08281 -4.93156,-2.08281z">
+									</path>
+								</g>
+							</g>
+						</svg>
+					</label>
+				</div>
+
+			</div>
+
+
+			<div class="footer">
+				<h5 style="padding-top: 5px;">All rights reserved by Capgemini. Copyright © 2021</h5>
+			</div>
+
+		</div>
+
+		<div class="slider--el slider--el-2 anim-9parts">
+			<div class="slider--el-bg">
+				<div class="part left-top"></div>
+				<div class="part mid-top"></div>
+				<div class="part right-top"></div>
+				<div class="part left-mid"></div>
+				<div class="part mid-mid"></div>
+				<div class="part right-mid"></div>
+				<div class="part left-bot"></div>
+				<div class="part mid-bot"></div>
+				<div class="part right-bot"></div>
+			</div>
+			<div class="slider--el-content" style="padding-top: 150px;padding-left: 115px !important;">
+				<h2 class="slider--el-heading">CONTACT US</h2>
+				<div class="container-content" style="background-color: rgba(255, 255, 255, 0.5)">
+					<div class="container" style="color: black;">
+
+						<div class="service">
+
+							<!-- Heading-->
+							<h1 style="margin-top:30px; color: black;text-align: center;">
+								Options to Contact
+							</h1>
+
+							<div id="service">
+
+								<div class="box">
+
+									<!-- Toll Free Number -->
+									<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100px" height="100px"
+										viewBox="0 0 172 172" style=" fill:#000000;">
+										<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1"
+											stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+											stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+											font-weight="none" font-size="none" text-anchor="none"
+											style="mix-blend-mode: normal">
+											<path d="M0,172v-172h172v172z" fill="none"></path>
+											<g fill="#3498db">
+												<path
+													d="M48.16,13.72641c-18.95899,0 -34.4,15.44101 -34.4,34.4v75.68c0,18.95899 15.44101,34.4 34.4,34.4h75.68c18.95899,0 34.4,-15.44101 34.4,-34.4v-75.68c0,-18.95899 -15.44101,-34.4 -34.4,-34.4zM61.94015,41.39422c2.16032,0.09288 4.14429,1.31005 5.34141,3.17797c1.36224,2.12592 3.47628,5.42531 6.22828,9.72875c2.5112,3.92504 2.68632,8.99453 0.44344,13.08813l-5.03906,7.1689c-1.36224,1.94016 -1.63394,4.42341 -0.7189,6.61125c1.42416,3.4056 4.18503,8.63956 9.09047,13.545c4.90544,4.90544 10.1394,7.66631 13.545,9.09047c2.18784,0.91504 4.67109,0.64334 6.61125,-0.7189l7.1689,-5.03906c4.0936,-2.24288 9.16309,-2.06432 13.08813,0.44344c4.30344,2.752 7.60283,4.86604 9.72875,6.22828c1.86792,1.19712 3.08509,3.18109 3.17797,5.34141c0.52976,12.26016 -8.96862,17.22687 -11.73094,17.22687c-1.91264,0 -24.90662,2.61338 -50.84078,-23.32078c-25.93416,-25.93416 -23.32078,-48.92814 -23.32078,-50.84078c0,-2.76232 4.96671,-12.2607 17.22687,-11.73094z">
+												</path>
+											</g>
+										</g>
+									</svg>
+
+									<br>
+
+									<p style="font-size: 15px;">
+										<i style="color: blue;"><u>Phone:</u></i> +1800 200 300 400
+									</p>
+
+
+								</div>
+
+								<div class="box">
+
+
+									<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100px" height="100px"
+										viewBox="0 0 172 172" style=" fill:#000000;">
+										<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1"
+											stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+											stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+											font-weight="none" font-size="none" text-anchor="none"
+											style="mix-blend-mode: normal">
+											<path d="M0,172v-172h172v172z" fill="none"></path>
+											<g fill="#3498db">
+												<path
+													d="M90.91813,6.88c-44.13931,0 -80.09754,35.75967 -80.57797,79.86578v0.0739v0.08063c0.48135,43.19753 35.70109,78.21969 78.93188,78.21969c26.5517,0 49.01304,-7.95739 67.37562,-29.9925c2.4342,-2.92029 2.04014,-7.26096 -0.88015,-9.69515c-2.92029,-2.4342 -7.26096,-2.04014 -9.69515,0.88015c-16.03741,19.24489 -32.74273,25.0475 -56.80031,25.0475c-35.80201,0 -64.72589,-28.74253 -65.16516,-64.54031c0.44378,-36.70237 30.10371,-66.17969 66.81125,-66.17969c14.91761,0 29.34821,5.07004 39.82875,13.975c10.48054,8.90496 17.17313,21.3934 17.17313,37.58469v1.33031c0,11.64583 -5.48199,22.70516 -13.01422,30.78531c-7.53223,8.08015 -17.17909,12.64469 -22.87735,12.64469c-1.26348,0 -1.21066,-0.15674 -1.31015,-0.26875c-0.0995,-0.11201 -0.63828,-0.86301 -0.63828,-3.17125v-0.17469l-0.00672,-0.17469c0,0 -0.46848,-8.06011 4.15219,-19.28281c0.00567,-0.01377 0.00775,-0.02653 0.01344,-0.04031l15.97719,-39.67422c0.9069,-2.16022 0.65229,-4.63345 -0.6757,-6.5636c-1.32799,-1.93014 -3.54685,-3.05192 -5.88852,-2.97703c-2.75945,0.08922 -5.19836,1.81921 -6.19469,4.39406l-0.88687,2.21047c-1.26451,-1.51368 -2.66414,-2.86888 -4.21266,-4.03125c-5.8404,-4.38397 -13.03448,-5.92594 -20.46531,-5.92594c-9.95805,0 -20.85274,5.65838 -30.37547,15.45313c-9.52273,9.79474 -17.15969,24.31562 -17.15969,42.36844c0,17.37389 14.20523,31.61844 31.56469,31.61844c9.56061,0 17.0263,-4.05602 22.07781,-8.87547c0.62314,1.42762 1.37365,2.7925 2.43219,3.98422c2.95625,3.32798 7.42829,4.89125 11.59656,4.89125c11.70471,0 23.43852,-6.83047 32.94203,-17.02531c9.50351,-10.19484 16.70953,-24.29052 16.70953,-40.16469v-1.33031c0,-20.10415 -8.79268,-36.8304 -22.02406,-48.07266c-13.23138,-11.24226 -30.73462,-17.24703 -48.73781,-17.24703zM91.89235,55.04c5.54485,0 9.48535,1.12758 12.20797,3.17125c2.47958,1.86124 4.42204,4.79338 5.61015,10.04453l-8.19015,20.34437l-4.63594,11.5025c-0.00675,0.01118 -0.01347,0.02238 -0.02015,0.0336c-2.41695,3.87513 -4.79109,8.21534 -8.00203,11.43531c-3.21094,3.21997 -6.71896,5.38844 -12.94031,5.38844c-9.90598,0 -17.80469,-7.90497 -17.80469,-17.85844c0,-14.21095 5.87177,-25.16499 13.26953,-32.77406c7.39777,-7.60908 16.83095,-11.2875 20.50563,-11.2875z">
+												</path>
+											</g>
+										</g>
+									</svg>
+
+									<br>
+
+
+									<p style="font-size: 15px;">
+										<i style="color: blue;"><u>Email:</u></i> xyx@capgemini.com
+									<p>
+
+
+								</div>
+
+								<div class="box">
+
+
+									<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100px" height="100px"
+										viewBox="0 0 172 172" style=" fill:#000000;">
+										<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1"
+											stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+											stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+											font-weight="none" font-size="50px" text-anchor="none"
+											style="mix-blend-mode: normal">
+											<path d="M0,172v-172h172v172z" fill="none"></path>
+											<g fill="#3498db">
+												<path
+													d="M86,10.41406c-41.67809,0 -75.58594,33.90785 -75.58594,75.58594c0,41.67809 33.90785,75.58594 75.58594,75.58594c41.67809,0 75.58594,-33.90785 75.58594,-75.58594c0,-41.67809 -33.90785,-75.58594 -75.58594,-75.58594zM86,30.57031c30.56393,0 55.42969,24.86576 55.42969,55.42969c0,30.56393 -24.86576,55.42969 -55.42969,55.42969c-30.56393,0 -55.42969,-24.86576 -55.42969,-55.42969c0,-30.56393 24.86576,-55.42969 55.42969,-55.42969zM87.67969,54.08594c-12.76092,0 -23.1793,10.42093 -23.22365,23.22955c-0.04401,12.62252 17.33904,38.71398 22.41136,46.0569c7.81861,-11.42087 24.07524,-37.0444 24.03594,-46.05559c-0.0561,-12.80963 -10.47448,-23.23086 -23.22365,-23.23086zM87.67969,65.47894c6.52357,0 11.8313,5.30707 11.8313,11.83064c0,3.20384 -1.26089,6.20424 -3.55031,8.4483c-2.22491,2.18124 -5.16584,3.38234 -8.28099,3.38234c-3.11481,0 -6.05608,-1.2011 -8.28099,-3.38234c-2.28908,-2.24406 -3.54965,-5.24413 -3.54965,-8.4483c0,-6.52357 5.30707,-11.83064 11.83064,-11.83064zM87.67969,68.83766c-4.67121,0 -8.47127,3.80105 -8.47127,8.47192c0,2.29412 0.9028,4.44271 2.54184,6.0495c1.59335,1.56144 3.69914,2.42177 5.92943,2.42177c2.23062,0 4.33641,-0.86 5.92943,-2.42177c1.63938,-1.60712 2.54184,-3.75538 2.54184,-6.0495c0.00034,-4.67088 -3.80006,-8.47192 -8.47127,-8.47192z">
+												</path>
+											</g>
+										</g>
+									</svg>
+
+									<br>
+
+
+
+									<p style="font-size: 15px;">
+										<i style="color: blue;"><u>Location:</u></i> Bangalore, India.
+									<p>
+
+
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="footer">
+					<h5 style="padding-top: 5px;">All rights reserved by Capgemini. Copyright © 2021</h5>
+				</div>
+
+
+			</div>
+		</div>
+		<div class="slider--el slider--el-3 anim-5parts">
+			<div class="slider--el-bg">
+				<div class="part part-1"></div>
+				<div class="part part-2"></div>
+				<div class="part part-3"></div>
+				<div class="part part-4"></div>
+				<div class="part part-5"></div>
+			</div>
+			<div class="slider--el-content" style="padding-top: 150px;padding-left: 115px !important;">
+				<h2 class="slider--el-heading">HELP</h2>
+				<div class="container-content" style="background-color: rgba(255, 255, 255, 0.5)">
+					<div class="container" style="color: black;">
+
+
+
+						<div class="row">
+							<p style="font-size: 17px;">For more clarity,<a style="font-size: 17px;color: blue;"
+									routerLink="/introduction"> click here </a> to see the
+								documentation.</p>
+							<br>
+							<p style="font-size: 17px;justify-content: center;">
+								To mitigate the migration challenge, frameworks are developed to address most of the
+								needs with simple utilities bundled as a framework.
+
+							</p>
+							<p style="font-size: 17px;justify-content: center;">In this website you can see custom
+								initializer, mapping generator, karate tool and wiremock.</p>
+							<p style="font-size: 17px;justify-content: center;">These framworks help us to reduce our
+								manual work and also minimize human errors.</p>
+							<p style="font-size: 17px;justify-content: center;">By this website, you came to know why we
+								are using these framworks and what are the main advantages.</p>
+							<p style="font-size: 17px;justify-content: center;">Explore all frameworks and use all
+								utilities in your application.</p>
+							<p style="font-size: 17px;justify-content: center;">It will reduce our development time upto
+								30%.</p>
+
+						</div>
+
+
+
+						<div class="footer">
+							<h5 style="padding-top: 5px;">All rights reserved by Capgemini. Copyright © 2021</h5>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="slider--el slider--el-4 anim-3parts">
+			<div class="slider--el-bg">
+				<div class="part left"></div>
+				<div class="part mid"></div>
+				<div class="part right"></div>
+			</div>
+			<div class="slider--el-content" style="padding-top: 150px; padding-left: 115px !important;">
+				<h2 class="slider--el-heading">FEEDBACK</h2>
+				<div class="container-content" style="background-color: rgba(255, 255, 255, 0.5)">
+
+					<form action="mailto:pavirat43@gmail.com" enctype="text/plain"
+						style="font-size: 15px;margin: 10px;">
+						<div class="row">
+							<div class="col-25">
+								<label for="fname">Full Name</label>
+							</div>
+							<div class="col-75">
+								<input type="text" id="fname" name="firstname" placeholder="Your name..">
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-25">
+								<label for="email">Mail Id</label>
+							</div>
+							<div class="col-75">
+								<input type="email" id="email" name="mailid" placeholder="Your mail id..">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-25">
+								<label for="feed_back">Feed Back</label>
+							</div>
+							<div class="col-75">
+								<textarea id="subject" name="subject" placeholder="Write something.."
+									style="height:100px"></textarea>
+							</div>
+						</div>
+						<div class="row" style="width: 200px;height: 60px;">
+							<button type="submit" class="btn btn-primary">
+								<h5 style="font-size: 15px;"><b>Send</b></h5>
+							</button>
+						</div>
+					</form>
+
+				</div>
+				<div class="footer">
+					<h5 style="padding-top: 5px;">All rights reserved by Capgemini. Copyright © 2021</h5>
+				</div>
+
+			</div>
+		</div>
+		<div class="slider--control left">
+			<label class="page1-left" for="page1"><img
+					src="https://img.icons8.com/external-flatarticons-blue-flatarticons/65/000000/external-home-smart-home-flatarticons-blue-flatarticons.png"
+					title="Home" style="height: 55px; " /></label> <label class="page2-left" for="page2"><img
+					src="https://img.icons8.com/external-flatarticons-blue-flatarticons/65/000000/external-contact-contact-us-flatarticons-blue-flatarticons-1.png"
+					title="Contact Us" style="height: 50px;" /></label> <label class="page3-left" for="page3"><img
+					src="https://img.icons8.com/fluency/48/000000/get-help.png" title="Help"
+					style="height: 50px;" /></label> <label class="page4-left" for="page4"><img
+					src="https://img.icons8.com/fluency/50/000000/feedback-hub.png" title="Feedback"
+					style="height: 50px; " /></label>
+		</div>
+
+		<div class="slider--control right">
+			<label class="page1-right" for="page1"><img
+					src="https://img.icons8.com/external-flatarticons-blue-flatarticons/65/000000/external-home-smart-home-flatarticons-blue-flatarticons.png"
+					title="Home" style="height: 55px; " /></label> <label class="page2-right" for="page2"><img
+					src="https://img.icons8.com/external-flatarticons-blue-flatarticons/65/000000/external-contact-contact-us-flatarticons-blue-flatarticons-1.png"
+					title="Contact Us" style="height: 50px;" /></label> <label class="page3-right" for="page3">
+				<img src="https://img.icons8.com/fluency/48/000000/get-help.png" title="Help" style="height: 50px;" />
+			</label> <label class="page4-right" for="page4"><img
+					src="https://img.icons8.com/fluency/50/000000/feedback-hub.png" title="Feedback"
+					style="height: 50px;" /></label>
+		</div>
+	</div>
+
+</body>
+
+</html>

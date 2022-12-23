@@ -1,0 +1,44 @@
+.div1{
+    background-color: white;
+    font-size: 15px;
+}
+
+.title1{
+    padding-left: 2rem; 
+    padding-top: 1rem; 
+    font-weight: bolder;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.customButton{
+    margin: auto;
+    margin-top: -1rem;
+    margin-right: 2rem; 
+    border: 0;
+    padding: 10px;
+    color: #12ABDB;
+    outline: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.customButton:hover{
+    background-color: #12ABDB;
+    color: white;
+    font-weight: bolder;
+}
+
+i{
+    color: grey;
+    margin: 0.5rem;
+    top: 0.5rem;
+}
+
+.customInput{
+    width: 90%;
+    margin: 0.5rem;
+    border: none; 
+    outline: none;
+    overflow: visible;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-bottom: 2px solid black;
+}

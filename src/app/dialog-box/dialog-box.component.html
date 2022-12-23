@@ -1,0 +1,18 @@
+<div class="div1" id="div1">
+    <h2 mat-dialog-title class="title1">Share your configuration</h2>
+    <hr width="100%">
+
+    <mat-dialog-content style="margin: 1rem;">
+        <p> Use this link to share the current configuration. Attributes can be removed from the URL if you want to rely
+            on our defaults. </p>
+        <div>
+            <input readonly class="customInput" value="Abc" id="custom" #custom>
+            <i class='fas fa-clipboard fa-2x' (click)="copy(custom)" id="clipboard"></i>
+        </div>
+    </mat-dialog-content>
+
+    <hr width="100%">
+    <mat-dialog-actions>
+        <button class="customButton" (click)="close()">Close</button>
+    </mat-dialog-actions>
+</div>

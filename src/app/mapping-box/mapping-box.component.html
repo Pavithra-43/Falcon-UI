@@ -1,0 +1,38 @@
+<div id="body" style="font-size: 20px; border-radius: 20px; border: 3px solid #12ABDB;background-color: white; min-width: none;overflow: scroll;" >
+
+    <div id="buttonSize"><span (click)="buttonClose()">X</span></div>
+    <h3 style="padding-left: 36%;padding-top: 10px; font-size: 30px; color: #12ABDB;">Spec Sheet!</h3>
+    <div style="padding-top: 10px;padding: 5%;">
+    
+    <h3 style="font-size: 20px;">Click the button to upload your file!</h3>
+        <button class="btn" style="width: 150px !important;" (click)="fileInput.click()">
+          <i class="fa fa-upload"></i> Upload
+          <input #fileInput type="file" class="file-upload" id="file_upload" (change)="onUploadFiles($event)"
+            accept=".xml">
+        </button>
+        <div style="margin-top: 10px !important;width: 80%;" class="alert alert-success alert-dismissable" *ngIf="show"
+          role="alert">
+          <button aria-label="close" class="close" (click)="close()">
+            <span aria-hidden="true" style="font-size: 28px;">&times;</span>
+          </button>
+          <strong>File Uploaded Successfully!</strong>
+        </div>
+        <div style="margin-top: 10px !important;" class="alert alert-danger alert-dismissable" *ngIf="show1" role="alert">
+          <button aria-label="close" class="close" (click)="close1()">
+            <span aria-hidden="true" style="font-size: 28px;">&times;</span>
+          </button>
+          <strong>File Not Uploaded!</strong>
+        </div>
+        <div style="padding-top: 20px;">
+          <h3 style="font-size: 20px;">Download the specification sheet here!</h3>
+
+          <button class="btn" style="background-color: #3CB371 !important;" (click)="downloadMapping()" [disabled]="btnDisable">
+
+            <i class="fa fa-download"></i> Download
+
+          </button>
+        </div>
+    </div>
+        <br>
+
+  </div>

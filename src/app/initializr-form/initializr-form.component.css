@@ -1,0 +1,439 @@
+
+#body{
+    border-radius: 30px;
+    overflow:scroll;
+}
+.line{
+    display: inline-block; 
+    width: 100%;
+}
+
+.line label {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 26px;
+    font-weight: normal;
+}
+
+.line1 label{
+    display: inline-block;
+    font-weight: normal;
+}
+
+.line1 {
+    display: inline-block;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.form-control1 {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-group{
+    margin-top: 1rem;
+}
+
+.form-group1{
+    width: 48%;
+    float: left;
+}
+
+.form-group12{
+    width: 100%;
+    float: left;
+    margin-top: 2rem;
+}
+  
+.form-group2{
+    width: 48%;
+    float: right;
+}
+
+.form-group label{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 26px;
+    font-weight: normal;
+}
+
+
+.container0{
+    padding: 0;
+    display: block;
+}
+
+.container1{
+    float: left;
+    background-color: #12ABDB;
+    width: 50%;
+    padding: 2rem;
+}
+
+.container2{
+    overflow-y: scroll;
+    height: 100vh;
+    padding: 2rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    position: static;
+    background-color: #fff;
+    box-shadow: 15px 15px 10px #000;
+    margin: auto;
+}
+
+
+h1{
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.control{
+    width: 100%;
+    padding: 0;
+}
+
+.control-element{
+    display: block;
+    padding: 0;
+}
+
+.control-inline{
+    display: flex;
+    padding: 0.6rem;
+}
+
+.control label {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 26px;
+    font-weight: normal;
+}
+
+.control-inline label {
+    white-space: nowrap;
+    font-weight: 500;
+    flex: 110px 0;
+    padding-top: 5px;
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.control-inline input,
+.control-inline .group-radio {
+    margin-left: 1.3rem;
+    font-weight: 300;
+    flex: 1
+}
+
+.control-inline input, .control-inline {
+    margin-left: 1.3rem;
+    font-weight: 300;
+    flex: 1;
+}
+
+.control-inline input {
+    color: #000;
+    background: #fff;
+    border-left: none;
+}
+
+.input {
+    display: block;
+    border: 0;
+    outline: none;
+    border-bottom: 3px solid #000;
+    line-height: 16px;
+    font-size: 15px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: .35rem 0 .55rem;
+    border-radius: 0;
+    overflow: visible;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.input:focus{
+    border-color:#0070AD;
+}
+
+#btns{
+    width: 40%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 80px;
+}
+  
+li {
+    float: right;
+    height: 80px;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: #12ABDB;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+    font-size: 24px;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: #12ABDB;
+    color: #fff;
+    font-size: 30px;
+}
+  
+li.dropdown {
+    display: inline-block;
+}
+
+select {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+select:focus {
+    font-weight: bolder;
+}
+
+.customli{
+    float: left;
+}
+
+.customLabel{
+    padding-left: 0.2rem; 
+    padding-top: 0.8rem; 
+    font-size: 20px; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: black;
+}
+
+.multiSelect {
+    margin-top: 2rem;
+    width: 40%;
+}
+
+
+.ng-valid[required], .ng-valid.required{
+   border-left: 5px solid #12ABDB;
+}
+
+
+.menu{
+    height: 85px;
+    width: 85px;
+    background-color: #12ABDB;
+    border-radius: 50%;
+    position: relative;
+    margin: auto;
+    margin-top: 10rem;
+    left: 0;
+    right: 0;
+    font-size: 43px;
+    z-index: 2;
+}
+.fa-cog{
+    color: white;
+    margin:21px !important;
+}
+
+.fa-share-alt{
+    color: #12ABDB;
+    margin:21px !important;
+}
+.fa-download{
+    color: #12ABDB;
+    margin:21px !important;
+}
+.menu-items{
+    height: 80px;
+    width: 80px;
+    position: inherit;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+.menu-items>div{
+    background-color: white;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    position: relative;
+    font-size: 43px !important;
+    transition: 0.5s linear;
+}
+
+.fa{
+    position: relative;
+    margin: 19px;
+    font-size: 43px;
+}
+
+a{
+    color: #12ABDB;
+}
+
+.item1{
+    bottom: 80px;
+}
+
+.item2{
+    bottom: 160px;
+}
+
+.menu-items>div:hover{
+    background-color: #12ABDB;
+}
+
+.menu-items>div:hover a{
+    color: white;
+}
+
+.menu-items>div:hover .fa-share-alt{
+    color: white;
+} 
+.menu-items>div:hover .fa-download{
+    color: white;
+} 
+#buttonSize{
+    font-size: 25px;
+    float: right;
+    cursor: pointer;
+}
+.checkBox1{
+    padding-top: 50px;
+
+}
+
+.abc{
+    height: 100%;
+    padding: 10px;
+  }
+  
+  .line-wire{
+    display: flex;
+    flex-direction: row; 
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #12ABDB;
+  }
+  
+  .title-wire {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px !important;
+    font-weight: normal;
+  }
+  
+  .form-group1-wire{
+    width: 50%;
+    float: left;
+    padding: 10px;
+    border-right: 0.5px solid #12ABDB;
+  }
+  
+  .form-group2-wire{
+    width: 50%;
+    float: right;
+    border-left: 0.5px solid #12ABDB;
+  }
+  
+  .custom-label-wire{
+    color: #12ABDB;
+    font-weight: 600;
+    font-size: 12px !important;
+  }
+  
+  .edit-textboxes-main{
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #12ABDB;
+    margin-left: 10px;
+    width: 70%;
+    font-size: 20px !important;
+  }
+  
+  .edit-textboxes-sub1{
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #12ABDB;
+    margin-left: 10px;
+    width: 85%;
+    margin-top: 8px;
+    font-size: 12px !important;
+  }
+  
+  .edit-textboxes-sub2{
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #12ABDB;
+    margin-left: 10px;
+    width: 85%;
+    height: 25px;
+    margin-top: 10px;
+    font-size: 12px !important;
+  }
+  
+  .form-group-wire{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    font-size: 12px !important;
+  }
+  
+  
+  .custom-button-wire{
+    margin-top: 15px;
+    border: 2px solid #12ABDB;
+    color: #12ABDB;
+    font-size: 12px !important;
+    outline: none;
+    margin-right: 10px;
+    background-color: white;
+  }
+  
+  .custom-button-wire:hover{
+    background-color: #12ABDB;
+    color: white;
+  }
+  
+  .custom-button-wire:disabled {
+    background-color: gray;
+    color: white;
+    border: none;
+  }
+  
+  .formStyle{
+    font-size: 18px !important;
+    background-color: white;
+    margin: 18px !important;
+  }
+  
+  .formStyle1{
+    font-size: 18px !important;
+    background-color: white;
+  }
+  
+  .submit-div{
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  
+

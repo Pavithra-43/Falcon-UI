@@ -1,0 +1,298 @@
+<html>
+
+<head>
+
+  <title>
+    My first design
+  </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+</head>
+
+<body id="body">
+  <nav style="background-color: #e0e0e0 !important;" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a style="padding-left: -10px;" class="navbar-brand" href="#"><img width="150" alt="Angular Logo"
+          src="https://www.capgemini.com/us-en/wp-content/themes/capgemini-komposite/assets/images/logo.svg" /></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul style="padding-left: 50px;" class="navbar-nav ms-auto">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/karate-tool">
+              <h3>Response Comparison Tool</h3>
+            </a>
+          </li>
+
+
+        </ul>
+
+
+      </div>
+      <div class="spacer"></div>
+      <a routerLink="/">
+        <h3>Go to Dashboard</h3>
+      </a>
+    </div>
+  </nav>
+  <div style="background: url(../assets/static/gat-back.jpg)" class="jumbotron bg-cover text-white">
+    <div class="container py-5 text-center">
+      <h1 class="display-4 font-weight-bold">Response Comparison Tool</h1>
+      <p class="font-italic mb-0">How to compare response?</p>
+      <p class="font-italic">Compare results easily using karate!
+      </p>
+
+
+    </div>
+  </div>
+
+  <div class="container py-5" style="padding-left: 120px;">
+    <h5 style="font-size: 20px;"><b>Why Karate?</b></h5>
+    <div class="row">
+      <div class="col-lg-10 mb-4" style="justify-content: center;">
+        <p>
+          How to make sure test results after migration matches the results with Tibco. Each service may have multiple
+          test cases so comparing them manually using tools like beyond compare is cumbersome job.
+        </p>
+        <br>
+        <h5 style="font-size: 20px;"><b>How it works?</b></h5>
+        <p>
+          Karate framework is already used for functional/regression automated test. It is extended by adding capability
+          to execute test against both Tibco, SpringBoot and compare the responses.
+
+        </p>
+        <p>
+          In the application, we have to give both tibco and spring boot endpoint along with request body.
+        </p>
+        <p>Along with this, we can set our filter for comparison as well. Based on that filter the comparion logic will
+          work.</p>
+
+        <p>
+          The application creates both spring boot and tibco responses as a xml files.
+        </p>
+        <p>
+          It will compare the both responses and show what is the difference between them.
+        </p>
+        <p>
+          Based on the differences in result, we can triage further.
+        </p>
+        <h5 style="font-size: 20px;padding-top: 20px;"><b>Select service name and environment to
+            compare responses! </b></h5>
+
+        <p>If you want to run a particular service in a particular environment, select the values in the following table
+          to compare the responses.</p>
+
+        <div class="box1">
+          <div>
+            <!-- Service Name: -->
+            <!-- <select style="border-left: 7px solid #12ABDB;width: 80%;height: 35px;" class="form-control1"
+              id="serviceName" name="serviceName">
+              <option selected value="">
+                <h3 style="color: #12ABDB !important;">Select service name</h3>
+              </option>
+              <option value="http://taxquote-tms">taxquote-tms</option>
+              <option value="https://customerdocument-rsp">customerdocument-rsp</option>
+              <option value="https://customerqualification-rsp">customerqualification-rsp</option>
+              <option value="https://easypay-rsp">easypay-rsp</option>
+              <option value=" https://eipdocument-rsp">eipdocument-rsp</option>
+              <option value="https://equipmentinstallmentprogram-rsp">equipmentinstallmentprogram-rsp</option>
+              <option value="https://paymenthistory-rsp">paymenthistory-rsp</option>
+             
+             
+            </select> -->
+            <p style="color: #12ABDB;">1. Select the service name</p>
+            <ng-select style="width: 80% !important;" [items]="endpoints"
+               bindLabel="endpoint"
+               placeholder="Select service name">
+    </ng-select>
+          </div>
+          <div style="padding-top: 20px;">
+            <p style="color: #12ABDB;">2. Select the environmet</p>
+            <ng-select style="width: 80% !important;" [items]="endpoints1"
+               bindLabel="endpoint1"
+               placeholder="Select environment">
+    </ng-select>
+    <div>
+      <button class="button" style="width: max-content; padding: 10px 10px !important;">Compare Response</button>
+          </div>
+          </div>
+         
+        </div>
+       <div style="padding-top: 35px;">
+        <h5 style="font-size: 20px;"><b>Run the pipeline to see the karate report! </b></h5>
+        <p>1. Run the pipeline in gitlab to build the application.</p>
+        <p>2. Once the application is build successfully, you can compare spring boot and tibco responses.</p>
+        <p>3. After comparison, the HTML report will be generated to download.</p>
+
+
+
+        <button (click)="createKarateApp()" class="button"
+          style="width: max-content; padding: 15px 15px !important;">Generate comparison results</button>
+          <a href="https://gitlab.com/tmobile/DSG/dfm/sb/sb/txn/sap-java-demo/-/jobs/3183192958/artifacts/download"><button class="button" style="width: fit-content; padding: 15px;font-size: 20px;">Existing Report</button></a>
+
+        <br>
+       
+       </div> 
+        <div>
+          <br>
+          <h5 style="font-size: 20px;"><b>Advantages</b></h5>
+          <p>
+            1. It reduces the effort to compare the differences.
+
+          </p>
+          <p>2. Savings- 100% automation for results comparison.</p>
+          <p>
+            3. Benefits us during multiple test cycles.
+
+          </p>
+          <p>
+            4. It provides ability to track comparison reports of previous test cycles
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+
+    </div>
+    <div class="body-content">
+      <h5 style="font-size: 20px;"><b><i>Quick access to:</i></b></h5>
+    </div>
+
+    <div class="card-container">
+
+      <a class="card" routerLink="/introduction" routerLinkActive="active">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 24 24">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+        <span style="font-size: 17px;">Introduction</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </a>
+
+      <a class="card" routerLink="/mapping" routerLinkActive="active">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 24 24">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+        <span style="font-size: 17px;">Mapping Document</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </a>
+
+      <a class="card" routerLink="/initializr" routerLinkActive="active">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 24 24">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+        <span style="font-size: 17px;">API Generator</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </a>
+
+      <a class="card" routerLink="/wiremock" routerLinkActive="active">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 24 24">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+        <span style="font-size: 17px;">Virtualization Tool</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </a>
+
+      <a class="card" routerLink="/gatling" routerLinkActive="active">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 24 24">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+        <span style="font-size: 17px;">Performance Pillar</span>
+
+      </a>
+
+    </div>
+
+
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+
+
+
+
+    <div>
+      <p><b><i>Explore more by clicking the below icons!</i></b></p>
+    </div>
+    <div class="card-container">
+
+      <a class="circle-link" title="Animations"
+        href="https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwjvjYu4yd_yAhWODpEKHapVBwoYABAAGgJjZQ&ae=2&ei=SWMwYZf_E8vf1sQP8_G-wAk&ohost=www.google.com&cid=CAASEuRoxYTLFIHTRe7-hfcofg9Ytw&sig=AOD64_0_htyH7Sdla1eEAwfhvJAI1k9KVw&q&sqi=2&adurl&ved=2ahUKEwjXx_a3yd_yAhXLr5UCHfO4D5gQ0Qx6BAgDEAE"
+        target="_blank" rel="noopener">
+        <img width="26" height="26" viewBox="0 0 245 240"
+          src="https://img.icons8.com/fluency/48/000000/confluence.png" />
+      </a>
+
+      <a class="circle-link" title="CLI" href="https://about.gitlab.com/" target="_blank" rel="noopener">
+        <img width="26" height="26" viewBox="0 0 245 240" src="https://img.icons8.com/color/48/000000/gitlab.png" />
+      </a>
+
+      <a class="circle-link" title="Find a Local Meetup" href="https://slack.com/intl/en-in/" target="_blank"
+        rel="noopener">
+        <img width="26" height="26" viewBox="0 0 245 240"
+          src="https://img.icons8.com/material-two-tone/24/000000/slack-new.png" />
+      </a>
+
+      <a class="circle-link" title="Join the Conversation on Discord" href="https://www.capgemini.com/" target="_blank"
+        rel="noopener">
+        <img width="26" height="26" viewBox="0 0 245 240"
+          src="https://img.icons8.com/ultraviolet/40/000000/spades.png" />
+      </a>
+    </div>
+
+  </div>
+  <div class="footer-dark">
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-md-3 item">
+            <h3>Services</h3>
+            <ul>
+              <li><a href="https://www.capgemini.com/us-en/service/transformation-innovation/">Transformation &
+                  Innovation</a></li>
+              <li><a href="https://www.capgemini.com/us-en/service/digital-services/">Degital Service</a></li>
+              <li><a href="https://www.capgemini.com/us-en/service/cloud-services-2/">Cloud Service</a></li>
+              <li><a href="https://www.capgemini.com/us-en/service/technology-operations/">Technology Operation</a></li>
+              <li><a href="https://www.capgemini.com/us-en/service/business-services/">Business Service</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6 col-md-3 item">
+            <h3>About</h3>
+            <ul>
+              <li><a href="https://www.capgemini.com/">Company</a></li>
+              <li><a href="https://www.capgemini.com/">Team</a></li>
+              <li><a href="https://www.capgemini.com/careers/career-paths/">Careers</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6 item text">
+            <h3>Capgemini</h3>
+            <p>Capgemini is a global leader in consulting, digital transformation, technology and engineering services.
+              The Group is at the forefront of innovation to address the entire breadth of clients' opportunities in the
+              evolving world of cloud, digital and platforms.</p>
+          </div>
+          <div class="col item social">
+            <a href="https://www.facebook.com/CapgeminiIndia/"><i class="icon ion-social-facebook"></i></a>
+            <a href="https://twitter.com/Capgemini?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i
+                class="icon ion-social-twitter"></i></a>
+            <a href="https://www.instagram.com/capgeminiindia/?hl=en"><i class="icon ion-social-instagram"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>

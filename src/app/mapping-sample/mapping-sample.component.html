@@ -1,0 +1,315 @@
+<body style="min-width: none;">
+    <div>
+        <nav style="background-color: #e0e0e0 !important;"
+            class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container">
+                <a style="padding-left: -10px;" class="navbar-brand" href="#"><img width="150" alt="Angular Logo"
+                        src="https://www.capgemini.com/us-en/wp-content/themes/capgemini-komposite/assets/images/logo.svg" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul style="padding-left: 50px;" class="navbar-nav ms-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/wiremock">
+                                <h3 style="font-weight: 500;">API Virtualization Tool</h3>
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+                </div>
+                <div class="spacer"></div>
+                <a routerLink="/">
+                    <h3 style="font-weight: 500">Go to Dashboard</h3>
+                </a>
+            </div>
+        </nav>
+
+        <div style="background: url(../assets/static/wire-back.jpg)" class="jumbotron bg-cover text-white">
+            <div class="container py-5 text-center" style="font-size: 20px;">
+                <h1 class="display-4 font-weight-bold">Wiremock Stub Creator</h1>
+                <p class="font-italic mb-0">Create your own stub here.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px;">
+            <div class="abc">
+                <div style="margin-left: 210px ;">
+                    <b style="color: #12ABDB; font-weight: bolder; font-size: 20px !important; font-weight: 500;">CREATING
+                        A WIREMOCK STUB</b>
+                    <div style="padding: 10px 35px 15px;">
+                        <ul style="font-size: 20px;">
+                            <li>Fill in the request parameters with
+                                <ul style="margin-left: 20px;">
+                                    <li>Url pattern</li>
+                                    <li>Http method</li>
+                                    <li>Headers(Optional)</li>
+                                    <li>Query parameters(Optional)</li>
+                                </ul>
+                            </li>
+                            <li>Fill in response parameters with
+                                <ul style="margin-left: 20px;">
+                                    <li>Status code</li>
+                                    <li>Response body</li>
+                                </ul>
+                            </li>
+                            <li>After filling the values submit the form</li>
+                        </ul>
+                    </div>
+                    <p style="font-size: 20px; margin-left: 18px;"><span style="font-weight: bold;color: #12ABDB;">Note:
+                        </span>You need to fill in url pattern and http method to enable submit button. Headers and
+                        Query Params are optional.</p>
+                </div>
+                <div style="padding: 20px;">
+                    <form class="formStyle" name="myform" #myform="ngForm">
+                        <div class="line-wire">
+                            <div class="form-group1-wire">
+                                <label class="title-wire">Request</label>
+                                <div class="form-group-wire">
+                                    <label class="custom-label-wire">Name</label>
+                                    <input class="edit-textboxes-main" type="text" required id="reqname"
+                                        [(ngModel)]="reqname" name="reqname" placeholder="Name">
+                                </div>
+
+
+                                <div style="display: flex; flex-direction: row; padding: 10px;">
+                                    <div style="display: flex; flex-direction: column;">
+                                        <select class="form-control" id="httpMethod" required [(ngModel)]="httpMethod"
+                                            style="height: 28px !important;" name="httpMethod">
+                                            <option *ngFor="let method of httpmethods" [value]="method">{{method}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div style="display: flex; flex-direction: column; margin-left: 10px;">
+                                        <input class="edit-textboxes-sub1" type="url" required id="urlpattern"
+                                            [(ngModel)]="urlpattern" name="urlpattern" placeholder="/demo">
+                                    </div>
+                                </div>
+
+
+                                <div
+                                    style="display: flex; flex-direction: column; padding: 15px; border: 0.2px solid lightgrey; font-size: 12px !important; margin-left: 10px;">
+                                    <div style="display: flex; flex-direction: row;">
+                                        <div>
+                                            <button (click)="addHeader()" class="addButton" type="button"
+                                                [disabled]="headerEnable"><i class="fas fa-plus"></i><span
+                                                    style="margin-left: 4px;">Header</span></button>
+                                        </div>
+
+                                        <div style="margin-left: 5px;">
+                                            <button (click)="addQueryParam()" class="addButton" type="button"
+                                                [disabled]="paramEnable"><i class="fas fa-plus"></i><span
+                                                    style="margin-left: 4px;">Query Param</span></button>
+                                        </div>
+
+                                        <div style="margin-left: 5px;">
+                                            <button (click)="addBody()" class="addButton" type="button"
+                                                [disabled]="bAdd"><i class="fas fa-plus"></i><span
+                                                    style="margin-left: 4px;">Body</span></button>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="hAdd" style="margin-top: 10px; display: flex; flex-direction: row;">
+                                        <label style="margin-top: 20px; color: #12ABDB;">Header</label>
+                                        <input class="edit-textboxes-sub2" type="text" id="headerName"
+                                            [(ngModel)]="headerName" name="headerName" placeholder="Header name">
+                                        <select class="form-control" required id="headerMethod"
+                                            [(ngModel)]="headerMethod" name="headerMethod"
+                                            style="margin-top: 8px; margin-left: 8px; font-size: 12px;">
+                                            <option *ngFor="let method of headermethods">{{method}}</option>
+                                        </select>
+                                        <input class="edit-textboxes-sub2" type="text" id="headerValue"
+                                            [(ngModel)]="headerValue" name="headerValue" placeholder="Header value">
+                                        <div style="display: flex; flex-direction: row; margin-top: 8px;">
+                                            <button
+                                                style="background-color: green; color: white; width: 40px !important; height: 40px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                                                (click)="saveHeader()"><i class="fa fa-check"
+                                                    aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div *ngFor="let item of list1"
+                                        style="margin-top: 10px; display: flex; flex-direction: row;">
+                                        <label style="margin-top: 20px; color: #12ABDB;">Header</label>
+                                        <input class="edit-textboxes-sub2" type="text" id="headerName"
+                                            value="{{item.name}}" name="headerName">
+                                        <select class="form-control" required id="headerMethod" name="headerMethod"
+                                            style="margin-top: 8px; margin-left: 8px; font-size: 12px;">
+                                            <option>{{item.type}}</option>
+                                        </select>
+                                        <input class="edit-textboxes-sub2" type="text" value="{{item.value}}"
+                                            id="headerValue" name="headerValue">
+                                        <div style="display: flex; flex-direction: row; margin-top: 8px;">
+                                            <button
+                                                style="background-color: #d11a2a; color: white; width: 40px !important; height: 40px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                                                (click)="deleteHeader(item)"><i class="fa fa-times"
+                                                    aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="pAdd" style="margin-top: 5px; display: flex; flex-direction: row;">
+                                        <label style="margin-top: 20px; color: #12ABDB;">Param</label>
+                                        <input class="edit-textboxes-sub2" type="text" id="paramName"
+                                            [(ngModel)]="paramName" name="paramName" placeholder="Param name">
+                                        <select class="form-control" required id="paraMethod" [(ngModel)]="paraMethod"
+                                            name="paraMethod"
+                                            style="margin-top: 8px; margin-left: 8px; font-size: 12px;">
+                                            <option *ngFor="let method of paramethods">{{method}}</option>
+                                        </select>
+                                        <input class="edit-textboxes-sub2" type="text" id="paramValue"
+                                            [(ngModel)]="paramValue" name="paramValue" placeholder="Param value">
+                                        <div style="display: flex; flex-direction: row; margin-top: 8px;">
+                                            <button
+                                                style="background-color: green; color: white; width: 40px !important; height: 40px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                                                (click)="saveParam()"><i class="fa fa-check"
+                                                    aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div *ngFor="let item2 of list2"
+                                        style="margin-top: 5px; display: flex; flex-direction: row;">
+                                        <label style="margin-top: 20px; color: #12ABDB;">Param</label>
+                                        <input class="edit-textboxes-sub2" type="text" id="paramName"
+                                            value="{{item2.name}}" name="paramName">
+                                        <select class="form-control" required id="paraMethod" name="paraMethod"
+                                            style="margin-top: 8px; margin-left: 8px; font-size: 12px;">
+                                            <option>{{item2.type}}</option>
+                                        </select>
+                                        <input class="edit-textboxes-sub2" type="text" id="paramValue"
+                                            value="{{item2.value}}" name="paramValue">
+                                        <div style="display: flex; flex-direction: row; margin-top: 8px;">
+                                            <button
+                                                style="background-color: #d11a2a; color: white; width: 40px !important; height: 40px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                                                (click)="deleteParam(item2)"><i class="fa fa-times"
+                                                    aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="bAdd" style="margin-top: 5px; display: flex; flex-direction: column;">
+                                        <div style="display: flex; flex-direction: row;">
+                                            <label
+                                                style="margin-top: 20px; color: #12ABDB; margin-right: 5px;">Body</label>
+                                            <div style="display: flex; flex-direction: row; margin-top: 20px;">
+                                                <input type="radio" name="reqBodyType" [(ngModel)]="reqBodyType"
+                                                    value="none">
+                                                <label style="margin-left: 5px;">none</label>
+                                            </div>
+                                            <div
+                                                style="display: flex; flex-direction: row; margin-left: 10px; margin-top: 20px;">
+                                                <input type="radio" name="reqBodyType" [(ngModel)]="reqBodyType"
+                                                    value="raw">
+                                                <label style="margin-left: 5px;">raw</label>
+                                            </div>
+                                            <div style="margin-left: 10px;" *ngIf="checkType(reqBodyType)">
+                                                <select class="form-control" required id="rawType" [(ngModel)]="rawType"
+                                                    name="rawType"
+                                                    style="margin-top: 10px; margin-left: 8px; font-size: 12px !important;">
+                                                    <option *ngFor="let type of rawTypes">{{type}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; flex-direction: column;"
+                                            *ngIf="checkType(reqBodyType)">
+                                            <div style="display: flex; flex-direction: row;" *ngIf="rawType=='JSON'">
+                                                <textarea id="reqBody" [(ngModel)]="reqBody" name="reqBody"
+                                                    class="form-control" rows="4"
+                                                    style="border: 1px solid #12ABDB; height: auto;"></textarea>
+                                                <button *ngIf="savebody"
+                                                    style="background-color: green; color: white; width: 40px !important; height: 40px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                                                    (click)="saveBody()"><i class="fa fa-check"
+                                                        aria-hidden="true"></i></button>    
+                                                <button
+                                                    style="background-color: #d11a2a; color: white; width: 40px !important; height: 40px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                                                    (click)="deleteBody()"><i class="fa fa-times"
+                                                        aria-hidden="true"></i></button>
+                                                <div class="alert alert-danger" id="JSONBodyAlert"
+                                                    *ngIf="validateBody(reqBody)" style="margin-left: 8px;">
+                                                    <p>Provide a Valid JSON body.</p>
+                                                </div>
+                                            </div>
+                                            <div style="display: flex; flex-direction: row;" *ngIf="rawType=='text'">
+                                                <input type="text" class="edit-textboxes-sub2" name="reqBody"
+                                                    [(ngModel)]="reqBody">
+                                                <button *ngIf="savebody"
+                                                    style="background-color: green; color: white; width: 40px !important; height: 40px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                                                    (click)="saveBody()"><i class="fa fa-check"
+                                                        aria-hidden="true"></i></button>    
+                                                <button
+                                                    style="background-color: #d11a2a; color: white; width: 40px !important; height: 40px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                                                    (click)="deleteBody()"><i class="fa fa-times"
+                                                        aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group2-wire">
+                                <label class="title-wire">Response</label>
+                                <div class="form-group-wire">
+                                    <label class="custom-label-wire">Status Code</label>
+                                    <input class="edit-textboxes-main" type="number" required id="statusCode"
+                                        [(ngModel)]="statusCode" name="statusCode">
+                                    <div class="alert alert-danger" id="statusCodeAlert"
+                                        *ngIf="validateStatus(statusCode)">Provide A Valid Status Code eg:200</div>
+                                </div>
+
+                                <div class="form-group-wire">
+                                    <label class="custom-label-wire">JSON Body</label>
+                                    <div>
+                                        <textarea id="jsonBody" [(ngModel)]="jsonBody" name="jsonBody"
+                                            class="form-control" placeholder="{&#10; &nbsp;&nbsp;JSON : Value &#10;}"
+                                            rows="4" style="height: auto; font-size: 12px;"></textarea>
+                                        <div class="alert alert-danger" id="JSONBodyAlert"
+                                            *ngIf="validateBody(jsonBody)">
+                                            <p>Provide a Valid JSON body.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit-div">
+                            <button type="submit" (click)="onSubmit()"
+                                [disabled]="httpMethod.length==0 || urlpattern.length==0" class="custom-button-wire"
+                                style="padding: 8px;">SUBMIT</button>
+                            <button type="button" class="custom-button-wire" style="padding: 4px; margin-left: 10px;"><a
+                                routerLink="/wiremock" routerLinkActive="active" class="hrefrouter">Back to
+                                    Wiremockpage</a></button>
+                        </div>
+                        <div class="alert alert-success alert-dismissable" *ngIf="show" role="alert">
+                            <button aria-label="close" class="close" (click)="close()">
+                                <span style="font-size: 18px;" aria-hidden="true">&times;</span>
+                            </button>
+                            <strong style="font-size: 18px !important;">{{stub}}</strong>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div style="background-color: #12ABDB; text-align: center; padding-top: 10px;">
+                <b style="color: white; font-weight: bolder; font-size: 20px !important; font-weight: 500;">VIEW CURL
+                    statements</b>
+            </div>
+        </div>
+
+        <div>
+            <div class="stack">
+                <div class="cardWire" *ngFor="let item of completeModals">
+                    <div
+                        style="border: 1px solid #12ABDB; border-radius: 1rem; display: flex; flex-direction: column; padding: 10px;">
+                        <label class="custom-label-display">Request Name:</label>
+                        <p style="margin: 5px 15px 5px;">{{item.name}}</p>
+                        <div style="display: flex; flex-direction: row;">
+                            <label class="custom-label-display">CURL command:</label>
+                            <i class='fas fa-clipboard fa-1x' (click)="copy(custom)" id="clipboard"></i>
+                        </div>
+                        <input readonly style="margin: 5px 15px 5px;" id="custom" #custom value="{{item.cURL}}">        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,221 @@
+<html>
+
+<div id="body" style="min-width: none;">
+  <div class="container2" id="container2">
+    <div id="buttonSize"><span (click)="buttonClick()">X</span></div>
+    <div [hidden]="submitted">
+     <h1>Custom Initializer</h1>
+      <form #heroForm="ngForm">
+        <ng-container>
+          <div>
+            <div class="line">
+              <div class="form-group1">
+                <label for="project">Project</label>
+                <select class="form-control1" id="project" required [(ngModel)]="model.project" name="project"
+                  #power="ngModel">
+                  <option *ngFor="let pro of projects" [value]="pro">{{pro}}</option>
+                </select>
+              </div>
+
+              <div class="form-group2">
+                <label for="language">Language</label>
+                <select class="form-control1" id="language" required [(ngModel)]="model.language" name="language"
+                  #power="ngModel">
+                  <option *ngFor="let lan of languages" [value]="lan">{{lan}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="springVersion">SpringBoot Version</label>
+              <select class="form-control1" id="springVersion" required [(ngModel)]="model.springVersion"
+                name="springVersion" #power="ngModel">
+                <option *ngFor="let spring of springVersions" [value]="spring">{{spring}}</option>
+              </select>
+            </div>
+
+            <div class="control">
+              <label>Project Metadata</label>
+              <div class="control-element">
+                <div class="control-inline" data-children-count="1">
+                  <label for="inputGroup">Group</label>
+                  <input type="text" id="inputGroup" class="input" required [(ngModel)]="model.inputGroup"
+                    name="inputGroup" #name="ngModel">
+                </div>
+
+                <div class="control-inline" data-children-count="1">
+                  <label for="inputArtifact" matTooltip="Tooltip!">Artifact</label>
+                  <input type="text" id="input-artifact" class="input" required [(ngModel)]="model.inputArtifact"
+                    name="inputArtifact" #name="ngModel">
+                </div>
+
+                <div class="control-inline" data-children-count="1">
+                  <label for="inputVersion">Version</label>
+                  <input type="text" id="input-version" class="input" required [(ngModel)]="model.inputVersion"
+                    name="inputVersion" #name="ngModel">
+                </div>
+
+                <div class="control-inline" data-children-count="1">
+                  <label for="inputName">Name</label>
+                  <input type="text" id="input-name" class="input" required [(ngModel)]="model.inputName"
+                    name="inputName" #name="ngModel">
+                </div>
+
+                <div class="control-inline" data-children-count="1">
+                  <label for="inputDescription">Description</label>
+                  <input type="text" id="input-description" class="input" required [(ngModel)]="model.inputDescription"
+                    name="inputDescription" #name="ngModel">
+                </div>
+
+                <div class="control-inline" data-children-count="1">
+                  <label for="inputPackageName">Package name</label>
+                  <input type="text" id="input-packageName" class="input" required [(ngModel)]="model.inputPackageName"
+                    name="inputPackageName" #name="ngModel">
+                </div>
+
+                <div class="line1">
+                  <div class="form-group1" data-children-count="1">
+                    <label for="packaging">Packaging</label>
+                    <select class="form-control1" id="packaging" required [(ngModel)]="model.packaging" name="packaging"
+                      #power="ngModel">
+                      <option *ngFor="let pack of packagings" [value]="pack">{{pack}}</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group2" data-children-count="1">
+                    <label for="javaVersion">Java Version</label>
+                    <select class="form-control1" id="javaVersion" required [(ngModel)]="model.javaVersion"
+                      name="javaVersion" #power="ngModel">
+                      <option *ngFor="let ver of javaVersions" [value]="ver">{{ver}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+
+        <div class="line" style="margin-top: 2rem;">
+
+          <!-- <div class="form-group1" data-children-count="1">
+            <label for="javaVersion">Cloud Integration</label>
+            <select class="form-control1" id="cloudIntegration"
+              name="cloudIntegration">
+              <option *ngFor="let ver of cloudIntegration" [value]="ver">{{ver}}</option>
+            </select>
+          </div> -->
+
+          <div class="form-group1">
+            <label for="javaVersion">Cloud Integration</label>
+            <select style="border-left: 5px solid #12ABDB;"  class="form-control1" id="cloudIntegration"
+              name="cloudIntegration">
+              <option selected value="">Select cloud integration</option>
+              <option value="pcf">PCF Deployment</option>
+              <option value="aws">AWS Conductor</option>
+            </select>
+          </div>
+
+          <div class="form-group2">
+            <label>Dependencies</label>
+            <ng-multiselect-dropdown [placeholder]="'Add dependencies'" [settings]="dropdownSettings"
+              [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+              (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)" name="selectedItems">
+            </ng-multiselect-dropdown>
+            <div *ngIf="show" class="alert alert-danger" style="font-size: 15px;">Dependencies are required</div>
+          </div>
+  
+          
+        </div>
+
+        <div class="line" style="margin-top: 2rem;">
+
+          <div class="form-group1">
+            <label>Plugins</label>
+            <ng-multiselect-dropdown [placeholder]="'Add plugins'" [settings]="dropdownSettings"
+              [data]="dropdownList1" [(ngModel)]="selectedItems1" (onSelect)="onItemSelect1($event)"
+              (onSelectAll)="onSelectAll1($event)" (onDeSelect)="onItemDeSelect1($event)" [ngModelOptions]="{standalone: true}">
+            </ng-multiselect-dropdown>
+          </div>
+  
+          <div class="form-group2">
+            <label>Security Integration</label>
+            <ng-multiselect-dropdown [placeholder]="'Add security integration'" [settings]="dropdownSettings"
+              [data]="dropdownList5" [(ngModel)]="selectedItems5">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+
+        <div class="line" style="margin-top: 2rem;">
+          <div class="form-group1">
+            <label>Backend's</label>
+            <ng-multiselect-dropdown [placeholder]="'Add backends'" [settings]="dropdownSettings"
+              [data]="dropdownList2" [(ngModel)]="selectedItems2" (onSelect)="onItemSelect2($event)"
+              (onSelectAll)="onSelectAll2($event)" (onDeSelect)="onItemDeSelect2($event)" name="selectedItems">
+            </ng-multiselect-dropdown>
+          </div>
+  
+          <div class="form-group2">
+            <label>Packages</label>
+            <ng-multiselect-dropdown [placeholder]="'Add packages'" [settings]="dropdownSettings"
+              [data]="dropdownList3" [(ngModel)]="selectedItems3" (onSelect)="onItemSelect3($event)"
+              (onSelectAll)="onSelectAll3($event)" (onDeSelect)="onItemDeSelect3($event)" [ngModelOptions]="{standalone: true}">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+
+        <div style="padding-top: 15px;font-size: 20px;font-size: 20px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;">
+
+        <div class="form-group-wire">
+    <label class="custom-label-wire" style="font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+    font-size: 26px !important;
+    color: #212529;
+    font-weight: normal !important;">Swagger url: </label>
+    <input style="font-size: 13px !important;" class="edit-textboxes-main" type="url"
+        name="reqname" placeholder="Enter url for swagger">
+</div>
+         
+          <label for="MyBooleanValue">Do you want to create a repository in Gitlab?    </label>
+<!-- <input style="height: 17px; width: 17px;margin: 8px;padding-top: 20px !important;" type="checkbox"  class="radio" id="MyBooleanValue" name="MyBooleanValue1" value=true>Yes
+<input style="height: 17px; width: 17px;margin: 8px;padding-top: 20px !important;"  type="checkbox" class="radio" id="MyBooleanValue" name="MyBooleanValue2"  value=false>No -->
+<input style="height: 17px; width: 17px;margin: 8px;padding-top: 20px !important;" type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.true" (click)="selectCheckBox(check_box_type.true)">Yes
+<input style="height: 17px; width: 17px;margin: 8px;padding-top: 20px !important;" type="checkbox" name="test" [checked]="currentlyChecked === check_box_type.false" (click)="selectCheckBox(check_box_type.false)">No
+
+
+<div id="userDiv" *ngIf="MyBooleanValue">
+  <div class="form-group-wire">
+    <label class="custom-label-wire" style="font-size: 20px !important;padding-left: 15px !important;">Repository url: </label>
+    <input style="font-size: 13px !important;" class="edit-textboxes-main" type="url"
+        name="reqname" placeholder="Enter url for git repository">
+</div>
+</div>
+        </div>
+        
+        <div class="menu" (click)="pop()">
+          <i class="fa fa-cog fa-spin"></i>
+        </div>
+
+        <div class="menu-items">
+          <div class="item1" id="item1" (click)="btnclick()">
+            <div>
+              <a hreflang="#">
+                <i class="fa fa-download"></i>
+              </a>
+            </div>
+          </div>
+          <div class="item2" id="item2" (click)="btn2()">
+            <div>
+              <a hreflang="">
+                <i class="fa fa-share-alt"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+</div>
+</html>

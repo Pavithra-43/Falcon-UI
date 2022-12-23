@@ -1,0 +1,214 @@
+<body style="font-size: 20px; border-radius: 20px; border: 3px solid #12ABDB; min-width: none; overflow: hidden;">
+
+  <div style="overflow-y: scroll; position: static; padding-bottom: 2rem; height: 100vh; margin-bottom: 2rem;">
+    <div id="buttonSize"><span (click)="buttonClose()">X</span></div>
+    <h3 style="padding-left: 6%; padding-top: 50px; font-size: 27px; color: #12ABDB; font-weight: 800;">Create Stubs
+      using
+      Swagger</h3>
+    <div style="padding-top: 50px;padding-left: 8%">
+
+      <h3>Click the button to upload your JSON file!</h3>
+      <button class="btn" style="width: 150px !important;" (click)="fileInput.click()">
+        <i class="fa fa-upload"></i> Upload
+        <input #fileInput type="file" class="file-upload" id="file_upload" (change)="onUploadFiles($event)"
+          accept=".json">
+      </button>
+      <div style="margin-top: 10px !important; width: 80%;" class="alert alert-success alert-dismissable" *ngIf="show"
+        role="alert">
+        <button aria-label="close" class="close" (click)="close()">
+          <span aria-hidden="true" style="font-size: 28px;">&times;</span>
+        </button>
+        <strong>File Uploaded Successfully!</strong>
+      </div>
+      <div style="margin-top: 10px !important; width: 80%;" class="alert alert-danger alert-dismissable" *ngIf="show1"
+        role="alert">
+        <button aria-label="close" class="close" (click)="close1()">
+          <span aria-hidden="true" style="font-size: 28px;">&times;</span>
+        </button>
+        <strong>File Not Uploaded!</strong>
+      </div>
+    </div>
+
+    <div style="border: 2px solid #12ABDB; margin: 3% 6% 6%; display: flex; flex-direction: row; border-radius: 20px;"
+      *ngFor="let mod of models">
+      <!-- // -->
+      <div style="border-right: 1px solid #12ABDB; display: flex; flex-direction: column; width: 60%;">
+        <label style="margin: 10px; font-weight: 800;">Request</label>
+        <div style="display: flex; flex-direction: row; margin-left: 10px; margin-bottom: 10px;">
+          <label style="font-size: 15px; color: #12ABDB; font-weight: 500; margin-right: 10px;">Name</label>
+          <input placeholder="name" style="font-size: 15px; margin-top: -5px; border-bottom: 2px solid #12ABDB;">
+        </div>
+        <div style="display: flex; flex-direction: row; margin: 10px;">
+          <div style="display: flex; flex-direction: column;">
+            <select class="form-control" id="httpMethod" style="height: 28px !important; font-size: 15px;"
+              [(ngModel)]="mod.methodType" name="httpMethod">
+              <!-- // -->
+              <option *ngFor="let method of httpmethods" [value]="method">{{method}}</option>
+            </select>
+          </div>
+
+          <div style="display: flex; flex-direction: column; margin-left: 10px;">
+            <input style="font-size: 15px; border-bottom: 2px solid #12ABDB;" type="url" id="urlpattern"
+              value="{{mod.key}}" name="urlpattern" placeholder="/demo">
+            <!-- // -->
+          </div>
+        </div>
+        <div
+          style="display: flex; flex-direction: column; border: 1px solid lightgray; margin: 10px; padding-bottom: 10px;">
+          <div style="display: flex; flex-direction: row; padding: 8px;">
+            <div>
+              <button class="addButton" type="button" (click)="addHeader()"><i class="fas fa-plus"
+                  style="font-size: 12px;"></i><span style="margin-left: 4px;">Header</span></button>
+            </div>
+            <div style="margin-left: 5px;">
+              <button class="addButton" type="button" (click)="addQueryParam()"><i class="fas fa-plus"
+                  style="font-size: 12px;"></i><span style="margin-left: 4px;">Query
+                  Param</span></button>
+            </div>
+            <div style="margin-left: 5px;">
+              <button class="addButton" type="button" (click)="addBody()"><i class="fas fa-plus"
+                  style="font-size: 12px;"></i><span style="margin-left: 4px;">Body</span></button>
+            </div>
+          </div>
+
+          <div *ngIf="hAdd" style="margin-top: 5px; display: flex; flex-direction: row;">
+            <label
+              style="margin-top: 5px; margin-left: 10px; color: #12ABDB; font-size: 15px; font-weight: 500;">Header</label>
+            <input type="text" id="headerName"
+              style="font-size: 15px; margin-left: 10px; margin-top: 3px; height: 25px; width: 110px; border-bottom: 2px solid #12ABDB;"
+              name="headerName" placeholder="Header name">
+            <select id="headerMethod" name="headerMethod"
+              style="margin-left: 10px; font-size: 15px; width: 110px; height: 25px;">
+              <option *ngFor="let method of headermethods">{{method}}</option>
+            </select>
+            <input type="text" id="headerValue"
+              style="font-size: 15px; margin-left: 10px; margin-top: 3px; height: 25px; width: 110px; border-bottom: 2px solid #12ABDB;"
+              name="headerValue" placeholder="Header value">
+            <div style="display: flex; flex-direction: row;">
+              <button
+                style="background-color: green; color: white; width: 30px !important; height: 30px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                (click)="saveHeader()"><i class="fa fa-check" style="font-size: 15px;" aria-hidden="true"></i></button>
+            </div>
+          </div>
+
+          <div *ngFor="let item of mod.headers" style="margin-top: 10px; display: flex; flex-direction: row;">
+            <label style="margin-top: 5px; margin-left: 10px; color: #12ABDB; font-size: 15px; font-weight: 500;">Header</label>
+            <input style="font-size: 15px; margin-left: 10px; margin-top: 3px; height: 25px; width: 110px; border-bottom: 2px solid #12ABDB;" type="text" id="headerName"  name="headerName" value="{{item.name}}">
+            <select required id="headerMethod" name="headerMethod"
+            style="margin-left: 10px; font-size: 15px; width: 110px; height: 25px;">
+              <option>matches</option>
+            </select>
+            <input style="font-size: 15px; margin-left: 10px; margin-top: 3px; height: 25px; width: 110px; border-bottom: 2px solid #12ABDB;" type="text"  id="headerValue" name="headerValue" value="{{item.example}}">
+            <div style="display: flex; flex-direction: row;">
+              <button
+                style="background-color: #d11a2a; color: white; width: 30px !important; height: 30px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                (click)="deleteHeader(item)"><i class="fa fa-times" style="font-size: 15px;" aria-hidden="true"></i></button>
+            </div>
+          </div>
+
+          <div *ngIf="pAdd" style="margin-top: 10px; display: flex; flex-direction: row;">
+            <label
+              style="margin-top: 5px; margin-left: 10px; color: #12ABDB; font-size: 15px; font-weight: 500;">Param</label>
+            <input type="text" id="paramName"
+              style="font-size: 15px; margin-left: 13px; margin-top: 3px; height: 25px; width: 110px; border-bottom: 2px solid #12ABDB;"
+              name="paramName" placeholder="Param name">
+            <select id="paraMethod" name="paraMethod"
+              style="margin-left: 11px; font-size: 15px; width: 110px; height: 25px;">
+              <option *ngFor="let method of paramethods">{{method}}</option>
+            </select>
+            <input type="text" id="paramValue"
+              style="font-size: 15px; margin-left: 10px; margin-top: 3px; height: 25px; width: 110px; border-bottom: 2px solid #12ABDB;"
+              name="paramValue" placeholder="Param value">
+            <div style="display: flex; flex-direction: row;">
+              <button
+                style="background-color: green; color: white; width: 30px !important; height: 30px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                (click)="saveParam()"><i class="fa fa-check" style="font-size: 15px;" aria-hidden="true"></i></button>
+            </div>
+          </div>
+
+          <div *ngFor="let item of mod.parameters" style="margin-top: 10px; display: flex; flex-direction: row;">
+            <label style="margin-top: 5px; margin-left: 10px; color: #12ABDB; font-size: 15px; font-weight: 500;">Param</label>
+            <input style="font-size: 15px; margin-left: 13px; margin-top: 3px; height: 25px; width: 110px; border-bottom: 2px solid #12ABDB;" type="text" id="paramName"  name="paramName" value="{{item.name}}">
+            <select required id="paraMethod" name="paraMethod"
+            style="margin-left: 11px; font-size: 15px; width: 110px; height: 25px;">
+              <option>matches</option>
+            </select>
+            <input style="font-size: 15px; margin-left: 10px; margin-top: 3px; height: 25px; width: 110px; border-bottom: 2px solid #12ABDB;" type="text"  id="paramValue" name="paramValue" value="{{item.example}}">
+            <div style="display: flex; flex-direction: row;">
+              <button
+                style="background-color: #d11a2a; color: white; width: 30px !important; height: 30px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                (click)="deleteParam(item)"><i class="fa fa-times" style="font-size: 15px;" aria-hidden="true"></i></button>
+            </div>
+          </div>
+
+          <div *ngIf="bAdd" style="margin-top: 10px; display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: row;">
+              <label
+                style="margin-top: 5px; color: #12ABDB; margin-left: 10px; margin-right: 10px; font-size: 15px;">Body</label>
+              <div style="display: flex; flex-direction: row; margin-top: 5px;">
+                <input type="radio" name="reqBodyType" [(ngModel)]="reqBodyType" value="none">
+                <label style="margin-left: 5px; font-size: 15px;">none</label>
+              </div>
+              <div style="display: flex; flex-direction: row; margin-left: 10px; margin-top: 5px;">
+                <input type="radio" name="reqBodyType" [(ngModel)]="reqBodyType" value="raw">
+                <label style="margin-left: 5px; font-size: 15px;">raw</label>
+              </div>
+              <div style="margin-left: 10px;" *ngIf="checkType(reqBodyType)">
+                <select id="rawType" name="rawType" [(ngModel)]="rawType"
+                  style="margin-left: 10px; font-size: 15px !important;">
+                  <option *ngFor="let type of rawTypes">{{type}}</option>
+                </select>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column;" *ngIf="checkType(reqBodyType)">
+              <div style="display: flex; flex-direction: row;" *ngIf="rawType=='JSON'">
+                <textarea id="reqBody" name="reqBody" rows="4"
+                  style="border: 1px solid #12ABDB; height: auto; font-size: 15px; margin-left: 10px; width: 300px;"></textarea>
+                <button *ngIf="savebody"
+                  style="background-color: green; color: white; width: 30px !important; height: 30px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                  (click)="saveBody()"><i class="fa fa-check" style="font-size: 15px;" aria-hidden="true"></i></button>
+                <button
+                  style="background-color: #d11a2a; color: white; width: 30px !important; height: 30px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                  (click)="deleteBody()"><i class="fa fa-times" style="font-size: 15px;"
+                    aria-hidden="true"></i></button>
+                <div class="alert alert-danger" id="JSONBodyAlert" *ngIf="validateBody(reqBody)"
+                  style="margin-left: 8px;">
+                  <p>Provide a Valid JSON body.</p>
+                </div>
+              </div>
+              <div style="display: flex; flex-direction: row;" *ngIf="rawType=='text'">
+                <input type="text"
+                  style="font-size: 15px; margin-left: 13px; margin-top: 3px; height: 25px; width: 300px; border-bottom: 2px solid #12ABDB;"
+                  name="reqBody">
+                <button *ngIf="savebody"
+                  style="background-color: green; color: white; width: 30px !important; height: 30px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                  (click)="saveBody()"><i class="fa fa-check" style="font-size: 15px;" aria-hidden="true"></i></button>
+                <button
+                  style="background-color: #d11a2a; color: white; width: 30px !important; height: 30px !important; margin-left: 5px; outline: none; border-radius: 50%;"
+                  (click)="deleteBody()"><i class="fa fa-times" style="font-size: 15px;"
+                    aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="border-left: 1px solid #12ABDB; display: flex; flex-direction: column; width: 40%;">
+        <label style="margin: 10px; font-weight: 800;">Response</label>
+        <div style="display: flex; flex-direction: row; margin-left: 10px; margin-right: 10px;">
+          <label style="font-size: 15px; color: #12ABDB; font-weight: 500; margin-right: 10px;">Status</label>
+          <input placeholder="status code ex: 200" value="200"
+            style="font-size: 15px; margin-top: -5px; border-bottom: 2px solid #12ABDB; width: 70%;">
+        </div>
+        <div style="margin: 10px;">
+          <label style="font-size: 15px; color: #12ABDB; font-weight: 500;">JSON Body</label>
+          <div>
+            <textarea id="jsonBody" name="jsonBody" class="form-control"
+              placeholder="{&#10; &nbsp;&nbsp;JSON : Value &#10;}" rows="3"
+              style="height: auto; font-size: 15px; "></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>

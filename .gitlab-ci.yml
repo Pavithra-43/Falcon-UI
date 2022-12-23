@@ -1,0 +1,840 @@
+# Injection of templates
+include:
+  # Injects TMO Global Shared (handles certs, etc.)
+  - project: 'tmobile/templates'
+    ref: tmo/master
+    file: '/gitlab-ci/.tmo.global.common.gitlab-ci.yml'
+
+# # Injects Maven Test
+# - project: 'tmobile/templates'
+#   ref: tmo/master
+#   file: '/gitlab-ci/.tmo.job.mavenTest.gitlab-ci.yml'
+
+  # Injects get Deployed Version
+  - project: 'tmobile/templates'
+    ref: dsgpipe-enh-akumar12-SivaTest_prestine
+    file: '/gitlab-ci/.tmo.function.helm-istio-canary-deploy.gitlab-ci.yml'
+
+  # Injects Maven Build
+  - project: 'tmobile/templates'
+    ref: tmo/master
+    file: '/gitlab-ci/.tmo.job.mavenBuild.gitlab-ci.yml'
+
+  # Injects SonarScan capability
+  - project: 'tmobile/templates'
+    ref: tmo/master
+    file: '/gitlab-ci/.tmo.job.sonar.gitlab-ci.yml'
+
+  # Injects Fortify capability
+  - project: 'tmobile/templates'
+    ref: tmo/master
+    file: '/gitlab-ci/.tmo.job.fortify.gitlab-ci.yml'
+
+   # Injects Maven Publish
+  - project: 'tmobile/templates'
+    ref: tmo/master
+    file: '/gitlab-ci/.tmo.job.mavenPublish.gitlab-ci.yml'
+
+  # Injects PCF Deploy
+  - project: 'tmobile/templates'
+    ref: tmo/master
+    file: '/gitlab-ci/.tmo.function.pcf.gitlab-ci.yml'
+
+# # Injects Newman Postman
+# - project: 'tmobile/templates'
+#   ref: tmo/master
+#   file: '/gitlab-ci/.tmo.function.newman.gitlab-ci.yml'
+    
+# # Injects Helm Deploy
+# - project: 'tmobile/templates'
+#   ref: tmo/master
+#   file: '/gitlab-ci/.tmo.function.helm-deploy.gitlab-ci.yml'
+
+   # Injects Docker
+  - project: 'tmobile/templates'
+    ref: tmo/master
+    file: '/gitlab-ci/.tmo.job.docker.gitlab-ci.yml'    
+    
+  # Local Template sourcing the scoped environment variables
+  - project: 'tmobile/templates'
+    ref: dfm_tke_newpipeline
+    file: '/gitlab-ci/pipelines/dsg/common/sb/.tmo.dsg.pipeline.common.sb.vars.yml'
+
+    
+variables:
+    REPO_CODE: "DFM"
+    ORG_NAME: "DigitalFinanceManagement"
+    CONFIG_URL: "dsg-fms-cr"
+    PRISTINE_CONFIG_FILE : "k8deploy/${CI_ENVIRONMENT_NAME}/capability-creditriskprofile.properties"
+    #GIT_CONFIG_REPO: "ssh://git@bitbucket.service.edp.t-mobile.com:7999/${CONFIG_URL}/${PCF_SPACE}.git"
+    #CONFIG_REPO_BRANCH: "master" 
+    PRISTINE_CONFIG_REPO: "git@gitlab.com:tmobile/DSG/dfm/sb/capability-creditriskprofile.git"
+    PRISTINE_CONFIG_BRANCH: k8spipeline_Prestine
+    HELM_DEBUG: "true"
+    CANARY_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG"
+    CANARY_TAG: "$CI_COMMIT_SHA" 
+    CUSTOM_PROPS: "team=tmo/dsg/dfm/sb/sb/txn/${CI_PROJECT_TITLE}"
+    ARTIFACT_DIR: "./target/*.jar"
+    ARTIFACT_NAME: "${CI_PROJECT_TITLE}-${CI_COMMIT_REF_SLUG}.$CI_PIPELINE_IID.jar"
+    EXTRA_DOCKER_TAG: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_PIPELINE_IID"
+    JAR_FILE: "${CI_PROJECT_TITLE}-${CI_COMMIT_REF_SLUG}.$CI_PIPELINE_IID.jar"
+    DOCKER_BUILD_ARGS: "--build-arg JAR_FILE=$JAR_FILE"
+    DOCKER_TAG: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA"
+    # Build Params
+    MAVEN_VERSION: 3.3.9
+    APP_VERSION: "$CI_COMMIT_REF_SLUG"
+    BUILD_NUMBER: "$CI_PIPELINE_IID"
+    MAVEN_PUBLISH_ARGS: "-Dfile=target/${CI_PROJECT_TITLE}-${CI_COMMIT_REF_SLUG}.$CI_PIPELINE_IID.jar"
+    MAVEN_BUILD_ARGS: "clean package -P pcf"
+    PRISTINE_DEPLOY_TYPE: "manual"
+    PRISTINE_CONFIG_ENABLE: "true"
+    # Scan Params
+    ALLOW_SONAR_FAILURE: "true"
+    BB_PROP_FILE_DISABLE: "true"
+    
+    APP_INSTANCE_COUNT: 1
+    CANARY_APP_INSTANCE_COUNT: 1
+    HELM_VERSION: v3.0.2
+    HELM_APP_NAME: "${CI_PROJECT_TITLE}-${CI_ENVIRONMENT_NAME}"
+    HELM_VALUES: "k8deploy/${CI_ENVIRONMENT_NAME}/values.yaml"
+
+
+stages:
+  - tmo
+  - tmo-pre-deploy
+  - test
+  - build
+  - package
+  - publish  
+  - k8s-deployed-version  
+  - deploy
+  - verify
+  - deploy-approved
+  - rollback
+
+####
+## -- ilab02
+ilab02_version:
+  stage: k8s-deployed-version
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_ilab02
+    - .k8s_deployed_version
+  environment:
+      name: ilab02
+  allow_failure: true
+
+ilab02_deploy:
+  stage: deploy
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_ilab02
+    - .helm_istio_canary_deploy
+  environment:
+      name: ilab02
+  variables:
+    CANARY_PERCENTAGE: 0  
+  when: manual
+  dependencies:
+    - ilab02_version
+
+ilab02_verify:
+  stage: verify
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_ilab02
+  environment:
+      name: ilab02
+  script:
+  - echo "place holder for testing the newly deployed app"  
+  needs: ["ilab02_deploy"]  
+
+ilab02_live:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_ilab02
+    - .helm_istio_canary_deploy
+  environment:
+      name: ilab02
+  variables:
+    CANARY_PERCENTAGE: switch  
+  when: manual
+  dependencies:
+    - ilab02_version
+  needs: ["ilab02_version","ilab02_deploy","ilab02_verify"]  
+
+ilab02_rollback:
+  stage: rollback
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_ilab02
+    - .helm_istio_canary_deploy
+  environment:
+      name: ilab02
+  variables:
+    CANARY_PERCENTAGE: rollback 
+  when: manual
+  dependencies:
+    - ilab02_version
+  needs: ["ilab02_version","ilab02_deploy","ilab02_verify","ilab02_live"]  
+
+## -- qlab01
+qlab01_version:
+  stage: k8s-deployed-version
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab01
+    - .k8s_deployed_version
+  environment:
+      name: qlab01
+  allow_failure: true
+
+qlab01_deploy:
+  stage: deploy
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab01
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab01
+  variables:
+    CANARY_PERCENTAGE: 0  
+  when: manual
+  dependencies:
+    - qlab01_version
+
+qlab01_verify:
+  stage: verify
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab01
+  environment:
+      name: qlab01
+  script:
+  - echo "place holder for testing the newly deployed app"  
+  needs: ["qlab01_deploy"]  
+
+qlab01_live:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab01
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab01
+  variables:
+    CANARY_PERCENTAGE: switch  
+  when: manual
+  dependencies:
+    - qlab01_version
+  needs: ["qlab01_version","qlab01_deploy","qlab01_verify"]  
+
+qlab01_rollback:
+  stage: rollback
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab01
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab01
+  variables:
+    CANARY_PERCENTAGE: rollback 
+  when: manual
+  dependencies:
+    - qlab01_version
+  needs: ["qlab01_version","qlab01_deploy","qlab01_verify","qlab01_live"]  
+
+## -- qlab02
+qlab02_version:
+  stage: k8s-deployed-version
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab02
+    - .k8s_deployed_version
+  environment:
+      name: qlab02
+  allow_failure: true
+
+qlab02_deploy:
+  stage: deploy
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab02
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab02
+  variables:
+    CANARY_PERCENTAGE: 0  
+  when: manual
+  dependencies:
+    - qlab02_version
+
+qlab02_verify:
+  stage: verify
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab02
+  environment:
+      name: qlab02
+  script:
+  - echo "place holder for testing the newly deployed app"  
+  needs: ["qlab02_deploy"]  
+
+qlab02_live:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab02
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab02
+  variables:
+    CANARY_PERCENTAGE: switch  
+  when: manual
+  dependencies:
+    - qlab02_version
+  needs: ["qlab02_version","qlab02_deploy","qlab02_verify"]  
+
+qlab02_rollback:
+  stage: rollback
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab02
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab02
+  variables:
+    CANARY_PERCENTAGE: rollback 
+  when: manual
+  dependencies:
+    - qlab02_version
+  needs: ["qlab02_version","qlab02_deploy","qlab02_verify","qlab02_live"]  
+
+## -- qlab03
+qlab03_version:
+  stage: k8s-deployed-version
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab03
+    - .k8s_deployed_version
+  environment:
+      name: qlab03
+  allow_failure: true
+
+qlab03_deploy:
+  stage: deploy
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab03
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab03
+  variables:
+    CANARY_PERCENTAGE: 0  
+  when: manual
+  dependencies:
+    - qlab03_version
+
+qlab03_verify:
+  stage: verify
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab03
+  environment:
+      name: qlab03
+  script:
+  - echo "place holder for testing the newly deployed app"  
+  needs: ["qlab03_deploy"]  
+
+qlab03_live:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab03
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab03
+  variables:
+    CANARY_PERCENTAGE: switch  
+  when: manual
+  dependencies:
+    - qlab03_version
+  needs: ["qlab03_version","qlab03_deploy","qlab03_verify"]  
+
+qlab03_rollback:
+  stage: rollback
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab03
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab03
+  variables:
+    CANARY_PERCENTAGE: rollback 
+  when: manual
+  dependencies:
+    - qlab03_version
+  needs: ["qlab03_version","qlab03_deploy","qlab03_verify","qlab03_live"]  
+## -- qlab06 
+qlab06_version:
+  stage: k8s-deployed-version
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab06
+    - .k8s_deployed_version
+  environment:
+      name: qlab06  
+  allow_failure: true
+
+qlab06_deploy:
+  stage: deploy
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab06
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab06  
+  variables:
+    CANARY_PERCENTAGE: 0  
+  when: manual
+  dependencies:
+    - qlab06_version
+
+qlab06_verify:
+  stage: verify
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab06
+  environment:
+      name: qlab06
+  script:
+  - echo "place holder for testing the newly deployed app"  
+  needs: ["qlab06_deploy"]  
+
+qlab06_live:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab06
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab06  
+  variables:
+    CANARY_PERCENTAGE: switch  
+  when: manual
+  dependencies:
+    - qlab06_version
+  needs: ["qlab06_version","qlab06_deploy","qlab06_verify"]  
+
+qlab06_rollback:
+  stage: rollback
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab06
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab06  
+  variables:
+    CANARY_PERCENTAGE: rollback 
+  when: manual
+  dependencies:
+    - qlab06_version
+  needs: ["qlab06_version","qlab06_deploy","qlab06_verify","qlab06_live"]  
+
+## -- qlab07 
+qlab07_version:
+  stage: k8s-deployed-version
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab07
+    - .k8s_deployed_version
+  environment:
+      name: qlab07  
+  allow_failure: true
+
+qlab07_deploy:
+  stage: deploy
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab07
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab07  
+  variables:
+    CANARY_PERCENTAGE: 0  
+  when: manual
+  dependencies:
+    - qlab07_version
+
+qlab07_verify:
+  stage: verify
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab07
+  environment:
+      name: qlab07
+  script:
+  - echo "place holder for testing the newly deployed app"  
+  needs: ["qlab07_deploy"]  
+
+qlab07_live:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab07
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab07  
+  variables:
+    CANARY_PERCENTAGE: switch  
+  when: manual
+  dependencies:
+    - qlab07_version
+  needs: ["qlab07_version","qlab07_deploy","qlab07_verify"]  
+
+qlab07_rollback:
+  stage: rollback
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_qlab07
+    - .helm_istio_canary_deploy
+  environment:
+      name: qlab07  
+  variables:
+    CANARY_PERCENTAGE: rollback 
+  when: manual
+  dependencies:
+    - qlab07_version
+  needs: ["qlab07_version","qlab07_deploy","qlab07_verify","qlab07_live"]  
+  
+  ## -- plab01 
+plab01_version:
+  stage: k8s-deployed-version
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_plab01
+    - .k8s_deployed_version
+  environment:
+      name: plab01  
+  allow_failure: true
+
+plab01_deploy:
+  stage: deploy
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_plab01
+    - .helm_istio_canary_deploy
+  environment:
+      name: plab01  
+  variables:
+    CANARY_PERCENTAGE: 0  
+  when: manual
+  dependencies:
+    - plab01_version
+
+plab01_verify:
+  stage: verify
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_plab01
+  environment:
+      name: plab01
+  script:
+  - echo "place holder for testing the newly deployed app"  
+  needs: ["plab01_deploy"]  
+
+plab01_live:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_plab01
+    - .helm_istio_canary_deploy
+  environment:
+      name: plab01  
+  variables:
+    CANARY_PERCENTAGE: switch  
+  when: manual
+  dependencies:
+    - plab01_version
+  needs: ["plab01_version","plab01_deploy","plab01_verify"]  
+
+plab01_rollback:
+  stage: rollback
+  extends:
+    - .sb_vars_npe
+    - .sb_vars_plab01
+    - .helm_istio_canary_deploy
+  environment:
+      name: plab01  
+  variables:
+    CANARY_PERCENTAGE: rollback 
+  when: manual
+  dependencies:
+    - plab01_version
+  needs: ["plab01_version","plab01_deploy","plab01_verify","plab01_live"]  
+  
+  
+## -- prd     
+zprd_version:
+  stage: k8s-deployed-version
+  extends:
+    - .sb_vars_prd
+    - .k8s_deployed_version
+  environment:
+      name: prd01  
+  allow_failure: true
+
+zprd_deploy:
+  stage: deploy
+  extends:
+    - .sb_vars_prd
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd01  
+  variables:
+    CANARY_PERCENTAGE: 0  
+  when: manual
+  dependencies:
+    - zprd_version
+
+zprd_verify:
+  stage: verify
+  extends:
+    - .sb_vars_prd
+    - .sb_vars_prd
+  environment:
+      name: prd01
+  script:
+  - echo "place holder for testing the newly deployed app"  
+  needs: ["zprd_deploy"]  
+
+zprd_live_05:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd01  
+  variables:
+    CANARY_PERCENTAGE: 5  
+  when: manual
+  dependencies:
+    - zprd_version
+  needs: ["zprd_version","zprd_deploy","zprd_verify"]
+
+zprd_live_10:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd01  
+  variables:
+    CANARY_PERCENTAGE: 10  
+  when: manual
+  dependencies:
+    - zprd_version
+  needs: ["zprd_version","zprd_deploy","zprd_verify"]
+
+zprd_live_25:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd01  
+  variables:
+    CANARY_PERCENTAGE: 25 
+  when: manual
+  dependencies:
+    - zprd_version
+  needs: ["zprd_version","zprd_deploy","zprd_verify"]
+
+zprd_live_50:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd01  
+  variables:
+    CANARY_PERCENTAGE: 50 
+  when: manual
+  dependencies:
+    - zprd_version
+  needs: ["zprd_version","zprd_deploy","zprd_verify"]
+
+zprd_live_100:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd01  
+  variables:
+    CANARY_PERCENTAGE: 100 
+  when: manual
+  dependencies:
+    - zprd_version
+  needs: ["zprd_version","zprd_deploy","zprd_verify"]
+
+zprd_newapp_switch:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd01  
+  variables:
+    CANARY_PERCENTAGE: switch
+  when: manual
+  dependencies:
+    - zprd_version
+  needs: ["zprd_version","zprd_deploy","zprd_verify"]
+
+zprd_rollback:
+  stage: rollback
+  extends:
+    - .sb_vars_prd
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd01  
+  variables:
+    CANARY_PERCENTAGE: rollback
+  when: manual
+  dependencies:
+    - zprd_version
+  needs: ["zprd_version","zprd_deploy","zprd_verify","zprd_newapp_switch"]
+  
+## -- prd02     
+zprd02_version:
+  stage: k8s-deployed-version
+  extends:
+    - .sb_vars_prd02
+    - .k8s_deployed_version
+  environment:
+      name: prd02  
+  allow_failure: true
+
+zprd02_deploy:
+  stage: deploy
+  extends:
+    - .sb_vars_prd02
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd02 
+  variables:
+    CANARY_PERCENTAGE: 0  
+  when: manual
+  dependencies:
+    - zprd02_version
+
+zprd02_verify:
+  stage: verify
+  extends:
+    - .sb_vars_prd02
+    - .sb_vars_prd02
+  environment:
+      name: prd02
+  script:
+  - echo "place holder for testing the newly deployed app"  
+  needs: ["zprd02_deploy"]  
+
+zprd02_live_05:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd02
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd02  
+  variables:
+    CANARY_PERCENTAGE: 5  
+  when: manual
+  dependencies:
+    - zprd02_version
+  needs: ["zprd02_version","zprd02_deploy","zprd02_verify"]
+
+zprd02_live_10:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd02
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd02  
+  variables:
+    CANARY_PERCENTAGE: 10  
+  when: manual
+  dependencies:
+    - zprd02_version
+  needs: ["zprd02_version","zprd02_deploy","zprd02_verify"]
+
+zprd02_live_25:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd02
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd02 
+  variables:
+    CANARY_PERCENTAGE: 25 
+  when: manual
+  dependencies:
+    - zprd02_version
+  needs: ["zprd02_version","zprd02_deploy","zprd02_verify"]
+
+zprd02_live_50:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd02
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd02  
+  variables:
+    CANARY_PERCENTAGE: 50 
+  when: manual
+  dependencies:
+    - zprd02_version
+  needs: ["zprd02_version","zprd02_deploy","zprd02_verify"]
+
+zprd02_live_100:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd02
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd02  
+  variables:
+    CANARY_PERCENTAGE: 100 
+  when: manual
+  dependencies:
+    - zprd02_version
+  needs: ["zprd02_version","zprd02_deploy","zprd02_verify"]
+
+zprd02_newapp_switch:
+  stage: deploy-approved
+  extends:
+    - .sb_vars_prd02
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd02 
+  variables:
+    CANARY_PERCENTAGE: switch
+  when: manual
+  dependencies:
+    - zprd02_version
+  needs: ["zprd02_version","zprd02_deploy","zprd02_verify"]
+
+zprd02_rollback:
+  stage: rollback
+  extends:
+    - .sb_vars_prd02
+    - .helm_istio_canary_deploy
+  environment:
+      name: prd02  
+  variables:
+    CANARY_PERCENTAGE: rollback
+  when: manual
+  dependencies:
+    - zprd02_version
+  needs: ["zprd02_version","zprd02_deploy","zprd02_verify","zprd02_newapp_switch"]

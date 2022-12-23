@@ -1,0 +1,221 @@
+<html>
+
+<head>
+
+  <title>
+    My first design
+  </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+</head>
+
+<body>
+  <nav style="background-color: #e0e0e0 !important;" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a style="padding-left: -10px;" class="navbar-brand" href="#"><img width="150" alt="Angular Logo"
+          src="https://www.capgemini.com/us-en/wp-content/themes/capgemini-komposite/assets/images/logo.svg" /></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul style="padding-left: 50px;" class="navbar-nav ms-auto">
+          <li class="nav-item active">
+            <a class="nav-link" routerLink="/home">
+              <h3>Introduction</h3>
+            </a>
+          </li>
+
+
+        </ul>
+
+
+      </div>
+      <div class="spacer"></div>
+      <a routerLink="/">
+        <h3>Go to Dashboard</h3>
+      </a>
+    </div>
+  </nav>
+  <div style="background: url(../assets/static/home-back.jpg)" class="jumbotron bg-cover text-white">
+    <div class="container py-5 text-center">
+      <h1 class="display-4 font-weight-bold">Tibco to Springboot Migration</h1>
+      <p class="font-italic mb-0">How to reduce our work?</p>
+      <p class="font-italic">Reduce development time using simple utilities!
+      </p>
+
+
+    </div>
+  </div>
+
+
+  <div class="container py-5" style="padding-left: 120px;">
+    <h5 style="font-size: 20px;"><b>Reduce your development time!</b></h5>
+    <div class="row">
+      <div class="col-lg-10 mb-4" style="justify-content: center;">
+        <p>
+          To mitigate the migration challenge, frameworks are developed to address most of the needs with simple
+          utilities bundled as a framework.
+        </p>
+        <br>
+        <p>
+          <b style="color: #12ABDB;">API Generator - Custom Initializer: </b> Default code generator that creates
+          template with the required folder structure and dependencies with design patterns. Repeated integration jars
+          can be included as and when required.
+
+        </p>
+        <p>
+          <b style="color: #12ABDB;">Mapping Document: </b> Mapping generator for reverse engineering of the TIBCO/Java
+          Code for developers to easily interpret the code and develop the logic
+
+        </p>
+        <p><b style="color: #12ABDB;">Response Comparison Tool: </b> Endpoint response comparison tool compare the use
+          case results of current application Vs new application. Helps the developers to identify the issues during
+          development stage
+        </p>
+        <p>
+          <b style="color: #12ABDB;">Virtualization Tool - Wiremock: </b> API virtualization tool to mock the partnering
+          API which avoids the dependency and availability of API.
+
+        </p>
+        <p>
+          <b style="color: #12ABDB;">Performance Pillar - Gatling: </b> Powerful open-source Performance/Load Testing
+          Tool integrated with Scala
+        </p>
+      </div>
+
+    </div>
+    <div class="body-content">
+      <h5 style="font-size: 20px;"><b><i>Quick access to:</i></b></h5>
+
+    </div>
+
+    <div class="card-container">
+
+      <a class="card" routerLink="/mapping" routerLinkActive="active">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 24 24">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+        <span style="font-size: 17px;">Mapping Document</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </a>
+
+      <a class="card" routerLink="/initializr" routerLinkActive="active">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 24 24">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+        <span style="font-size: 17px;">API Generator</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </a>
+
+      <a class="card" routerLink="/karate-tool" routerLinkActive="active">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 24 24">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+        <span style="font-size: 17px;">Response Comparator</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </a>
+
+      <a class="card" routerLink="/wiremock" routerLinkActive="active">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 24 24">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+        <span style="font-size: 17px;">Virtualization Tool</span>
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </a>
+
+      <a class="card" routerLink="/gatling" routerLinkActive="active">
+        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 24 24">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+        <span style="font-size: 17px;">Performance Pillar</span>
+      </a>
+
+    </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+
+
+
+
+    <div>
+      <p><b><i>Explore more by clicking the below icons!</i></b></p>
+    </div>
+    <div class="card-container">
+
+      <a class="circle-link" title="Animations"
+        href="https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwjvjYu4yd_yAhWODpEKHapVBwoYABAAGgJjZQ&ae=2&ei=SWMwYZf_E8vf1sQP8_G-wAk&ohost=www.google.com&cid=CAASEuRoxYTLFIHTRe7-hfcofg9Ytw&sig=AOD64_0_htyH7Sdla1eEAwfhvJAI1k9KVw&q&sqi=2&adurl&ved=2ahUKEwjXx_a3yd_yAhXLr5UCHfO4D5gQ0Qx6BAgDEAE"
+        target="_blank" rel="noopener">
+        <img width="26" height="26" viewBox="0 0 245 240"
+          src="https://img.icons8.com/fluency/48/000000/confluence.png" />
+      </a>
+
+      <a class="circle-link" title="CLI" href="https://about.gitlab.com/" target="_blank" rel="noopener">
+        <img width="26" height="26" viewBox="0 0 245 240" src="https://img.icons8.com/color/48/000000/gitlab.png" />
+      </a>
+
+      <a class="circle-link" title="Find a Local Meetup" href="https://slack.com/intl/en-in/" target="_blank"
+        rel="noopener">
+        <img width="26" height="26" viewBox="0 0 245 240"
+          src="https://img.icons8.com/material-two-tone/24/000000/slack-new.png" />
+      </a>
+
+      <a class="circle-link" title="Join the Conversation on Discord" href="https://www.capgemini.com/" target="_blank"
+        rel="noopener">
+        <img width="26" height="26" viewBox="0 0 245 240"
+          src="https://img.icons8.com/ultraviolet/40/000000/spades.png" />
+      </a>
+    </div>
+
+  </div>
+  <div class="footer-dark">
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-md-3 item">
+            <h3>Services</h3>
+            <ul>
+              <li><a href="https://www.capgemini.com/us-en/service/transformation-innovation/">Transformation &
+                  Innovation</a></li>
+              <li><a href="https://www.capgemini.com/us-en/service/digital-services/">Degital Service</a></li>
+              <li><a href="https://www.capgemini.com/us-en/service/cloud-services-2/">Cloud Service</a></li>
+              <li><a href="https://www.capgemini.com/us-en/service/technology-operations/">Technology Operation</a></li>
+              <li><a href="https://www.capgemini.com/us-en/service/business-services/">Business Service</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6 col-md-3 item">
+            <h3>About</h3>
+            <ul>
+              <li><a href="https://www.capgemini.com/">Company</a></li>
+              <li><a href="https://www.capgemini.com/">Team</a></li>
+              <li><a href="https://www.capgemini.com/careers/career-paths/">Careers</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6 item text">
+            <h3>Capgemini</h3>
+            <p>Capgemini is a global leader in consulting, digital transformation, technology and engineering services.
+              The Group is at the forefront of innovation to address the entire breadth of clients' opportunities in the
+              evolving world of cloud, digital and platforms.</p>
+          </div>
+          <div class="col item social">
+            <a href="https://www.facebook.com/CapgeminiIndia/"><i class="icon ion-social-facebook"></i></a>
+            <a href="https://twitter.com/Capgemini?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><i
+                class="icon ion-social-twitter"></i></a>
+            <a href="https://www.instagram.com/capgeminiindia/?hl=en"><i class="icon ion-social-instagram"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
